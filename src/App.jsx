@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Login from "./pages/Login"
-import Dashboard from "./pages/Dashboard"
+import Login from "./pages/auth/Login"
+import SignUp from "./pages/auth/SignUp"
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path='/' element={<Login />}/>
-            <Route path='/dashboard' element={<Dashboard/>}></Route>
+            <Route path='/signup' element={<SignUp/>}/>
         </Routes>
       </BrowserRouter>
     </>
@@ -16,4 +16,3 @@ function App() {
 }
 
 export default App
-
