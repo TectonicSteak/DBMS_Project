@@ -27,8 +27,11 @@ body {
     }
   }
   .box-form .left {
-    color: #FFFFFF;
+    color: #4a3f5225;
     overflow: hidden;
+    background-image: url("/src/assets/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .box-form .left .overlay {
     padding: 30px;
