@@ -69,6 +69,13 @@ body {
     font-size: 14px;
     color: #B0B3B9;
   }
+  .box-form .right p Link{
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+
+
   .box-form .right .inputs {
     overflow: hidden;
   }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
 import "./login.css"
+import { Link } from "react-router-dom";
 
 
 const Login = () =>{
@@ -41,10 +42,14 @@ const Login = () =>{
                 </div>
                     <div className="right">
                         <h5>Login</h5>
-                        <span>Don't have an account? <a href="#">Creat Your Account</a> it takes less than a minute</span>
+                        <span>Don't have an account?<Link to={"/signup"}>Create an account</Link> it takes less than a minute</span>
                         <div className="inputs">
                             <input type="text" placeholder="Username" onChange={(e) => {setUsername(e.target.value)}}/>
                             <input type="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
+                            <select>
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                            </select>
                         </div>
                         <div className="forgot-password">
                             <p><a>Forgot password?</a></p>

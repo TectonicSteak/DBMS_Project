@@ -14,7 +14,7 @@ body {
     overflow: hidden;
     display: flex;
     flex: 1 0 auto;
-    box-shadow: 0 0 20px 6px #090b6f85;
+    box-shadow: 0 0 20px 10px #090b6f85;
   }
   @media (max-width: 980px) {
     .box-form {
@@ -48,6 +48,8 @@ body {
   }
 
   .box-form .right {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
   @media (max-width: 980px) {
@@ -71,7 +73,7 @@ body {
   .box-form .right span{
     color: #868a91;
   }
-  .box-form .right span a{
+  .box-form .right span Link{
     text-decoration: none;
     color: #000;
     font-weight: bold;
@@ -89,12 +91,25 @@ body {
     border-bottom: 2px solid #B0B3B9;
   }
 
+  .box-form .right .inputs select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 25px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #B0B3B9;
+    border-radius: 5px;
+  }
+
   .box-form .right .forgot-password p a {
     padding: 10px;
     color: #000;
     font-weight: bold;
   }
-
+  .box-form .right .forgot-password p:hover{
+    cursor: pointer;
+  }
   .box-form .right button {
     float: right;
     color: #ffffff;
