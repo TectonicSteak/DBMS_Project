@@ -33,17 +33,17 @@ const Login = () =>{
 
     return(
         <>
-            <div className="box-form">
-                <div className="left">
-                    <div className="overlay">
+            <div className="login-box-form">
+                <div className="login-left">
+                    <div className="login-overlay">
                         <h1>Std.Hub</h1>
                         <p>One stop solution for Student Data Management</p>
                     </div>
                 </div>
-                    <div className="right">
+                    <div className="login-right">
                         <h5>Login</h5>
                         <span>Don't have an account?<Link to={"/signup"}>Create an account</Link> it takes less than a minute</span>
-                        <div className="inputs">
+                        <div className="login-inputs">
                             <input type="text" placeholder="Username" onChange={(e) => {setUsername(e.target.value)}}/>
                             <input type="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
                             <select>
@@ -51,7 +51,7 @@ const Login = () =>{
                                 <option value="Teacher">Teacher</option>
                             </select>
                         </div>
-                        <div className="forgot-password">
+                        <div className="login-forgot-password">
                             <p><a>Forgot password?</a></p>
                         </div>
                         <button onClick={handleSubmit}>Login</button>

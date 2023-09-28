@@ -33,22 +33,20 @@ const SignUp = () =>{
 
     return(
         <>
-            <div className="box-form">
-                <div className="left">
-                    <div className="overlay">
+            <div className="signup-box-form">
+                <div className="signup-left">
+                    <div className="signup-overlay">
                         <h1>Std.Hub</h1>
                         <p>One stop solution for Student Data Management</p>
                     </div>
                 </div>
-                    <div className="right">
+                    <div className="signup-right">
                         <h5>Sign Up</h5>
                         <p>Already have an account? <Link to={"/"}>Login</Link></p>
-                        <div className="inputs">
+                        <div className="signup-inputs">
                             <input type="text" placeholder="Username" onChange={(e) => {setUsername(e.target.value)}}/>
                             <input type="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
                             <input type="text" placeholder="Register Number" onChange={(e) => {}}/>
-                            <input type="text" placeholder="" onChange={(e) => {}}/>
-                            <input type="text" placeholder="" onChange={(e) => {}}/>
                             <input type="text" placeholder="" onChange={(e) => {}}/>
                         </div>
                         <button onClick={handleSubmit}>Sign Up</button>
