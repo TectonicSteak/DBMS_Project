@@ -9,6 +9,7 @@ const SignUp = () =>{
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const [formError,setFormError] = useState('')
+    const [accountType,setAccountType] = useState('Student')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,8 +47,11 @@ const SignUp = () =>{
                         <div className="signup-inputs">
                             <input type="text" placeholder="Username" onChange={(e) => {setUsername(e.target.value)}}/>
                             <input type="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
-                            <input type="text" placeholder="Register Number" onChange={(e) => {}}/>
-                            <input type="text" placeholder="" onChange={(e) => {}}/>
+                            <select onChange={(e) => {setAccountType(e.target.value)}}>
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                            </select>
+                            <input type="text" placeholder={accountType === "Student" ? "Register Number":"Teacher ID"} onChange={(e) => {}}/>
                         </div>
                         <button onClick={handleSubmit}>Sign Up</button>
                     </div>                
