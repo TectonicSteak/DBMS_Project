@@ -1,0 +1,18 @@
+nav{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.7vmax 1vmax 0.7vmax 0;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    justify-content: end;
+}
+
+nav .links{
+    margin-right: 4%;
+    text-decoration: none;
+    color: #224a5c;
+    font-weight: bold;
+}

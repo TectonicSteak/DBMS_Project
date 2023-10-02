@@ -1,15 +1,15 @@
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
-import Profile from "./Profile"
+import { useContext } from "react";
+import {Link,useNavigate} from "react-router-dom"
+import supabase from "../../config/supabaseClient";
+import { UserContext } from "../../App";
 
 const Dashboard = () => {
+    const {user,setUser} = useContext(UserContext);
+    
     return (
         <>
             <div className="mainDash">
-                <nav>
-                    <h1>DashBoard</h1>
-                    <Link className="links" to="/dashboard">Home</Link>
-                    <Link className="links" to="/profile">Profile</Link>
-                </nav>
+                <h1>Dashboard</h1>
             </div>
         </>
     )

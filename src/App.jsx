@@ -1,17 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Login from "./pages/auth/Login"
-import SignUp from "./pages/auth/SignUp"
+import { createContext,useState } from "react"
+import Views from "./Views"
+
+export const UserContext = createContext();
 
 function App() {
+  const [user,setUser] = useState({username: "" ,loggedIn:false});
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-            <Route path='/' element={<Login />}/>
-            <Route path='/signup' element={<SignUp/>}/>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <UserContext.Provider value={{user,setUser}}>
+      <Views/>
+    </UserContext.Provider>
   )
 }
 
