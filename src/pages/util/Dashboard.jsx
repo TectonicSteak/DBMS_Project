@@ -3,7 +3,6 @@ import {Link,useNavigate} from "react-router-dom"
 import supabase from "../../config/supabaseClient";
 import { UserContext } from "../../App";
 import NavBar from "./NavBar";
-import "./dashboard.css"
 
 const Dashboard = () => {
     const {user,setUser} = useContext(UserContext);
