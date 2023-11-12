@@ -1,21 +1,19 @@
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
-import "./signup.css"
 import { Link } from "react-router-dom";
 
 
 const SignUp = () =>{
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [userType, setUserType] = useState('student'); // Default user type
+    const [registrationNumber, setRegistrationNumber] = useState('');
+    const [teacherId, setTeacherId] = useState('');
 
-    const [username,setUsername] = useState('')
-    const [password,setPassword] = useState('')
-    const [formError,setFormError] = useState('')
-    const [accountType,setAccountType] = useState('Student')
-
-    const handleSubmit = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
         if(!username || !password){
-            setFormError("Fill all fields properly");
             return;
         }
 
@@ -32,33 +30,83 @@ const SignUp = () =>{
 
     }
 
-    return(
-        <>
-            <div className="signup-box-form">
-                <div className="signup-left">
-                    <div className="signup-overlay">
-                        <h1>Std.Hub</h1>
-                        <p>One stop solution for Student Data Management</p>
-                    </div>
-                </div>
-                    <div className="signup-right">
-                        <h5>Sign Up</h5>
-                        <p>Already have an account? <Link to={"/"}>Login</Link></p>
-                        <div className="signup-inputs">
-                            <input type="text" placeholder="Username" onChange={(e) => {setUsername(e.target.value)}}/>
-                            <input type="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
-                            <select onChange={(e) => {setAccountType(e.target.value)}}>
-                                <option value="Student">Student</option>
-                                <option value="Teacher">Teacher</option>
-                            </select>
-                            <input type="text" placeholder={accountType === "Student" ? "Register Number":"Teacher ID"} onChange={(e) => {}}/>
-                        </div>
-                        <button onClick={handleSubmit}>Sign Up</button>
-                    </div>                
-            </div>
-            
-        </>
-    );
+    
+  return (
+    <div className="signup-page h-screen flex flex-col items-center justify-center bg-gray-200">
+      <h1 className="text-3xl mb-5">Sign Up</h1>
+      <form className="w-1/3" onSubmit={handleSignup}>
+        <div className="mb-4">
+          <label className="text-lg mb-2">Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full px-3 py-2 border rounded outline-none"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-lg mb-2">Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="w-full px-3 py-2 border rounded outline-none"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-lg mb-2">User Type</label>
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+            className="w-full px-3 py-2 border rounded outline-none"
+          >
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+        </div>
+
+        {userType === 'student' && (
+          <div className="mb-4">
+            <label className="text-lg mb-2">Registration Number</label>
+            <input
+              type="text"
+              value={registrationNumber}
+              onChange={(e) => setRegistrationNumber(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded outline-none"
+            />
+          </div>
+        )}
+
+        {userType === 'teacher' && (
+          <div className="mb-4">
+            <label className="text-lg mb-2">Teacher ID</label>
+            <input
+              type="text"
+              value={teacherId}
+              onChange={(e) => setTeacherId(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded outline-none"
+            />
+          </div>
+        )}
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer"
+        >
+          Sign Up
+        </button>
+      </form>
+      <Link to='/' className="forgot-password text-blue-500 mt-4 cursor-pointer">
+        Already Registered?
+    </Link>
+    </div>
+  );
 }
 
 export default SignUp

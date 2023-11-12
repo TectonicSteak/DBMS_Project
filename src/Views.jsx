@@ -5,7 +5,6 @@ import SignUp from "./pages/auth/SignUp"
 import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "./pages/util/Dashboard";
 import Profile from "./pages/util/Profile";
-import NavBar from "./pages/util/NavBar";
 
 const Views = () =>{
     return(

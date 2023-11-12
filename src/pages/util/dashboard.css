@@ -2,3 +2,12 @@
     margin-top: 0;
     margin-left: 0;
 }
+
+.mainDash{
+    height: 100vh;
+    background: #ffffff;
+}
+
+.mainDash .dash{
+    background: #d3d3d3;
+}

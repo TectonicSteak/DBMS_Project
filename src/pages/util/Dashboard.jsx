@@ -12,7 +12,7 @@ const Dashboard = () => {
         <>
             <NavBar/>
             <div className="mainDash">
-                <h1>Dashboard</h1>
+                <h1 className="dash">Dashboard</h1>
             </div>
         </>
     )
