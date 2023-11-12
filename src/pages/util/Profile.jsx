@@ -6,30 +6,12 @@ import NavBar from "./NavBar";
 
 const Profile = () => {
     const {user,setUser} = useContext(UserContext);
-    const navigate = useNavigate();
-
-    const logOut = async () => {
-        setUser({userloggedIn:false})
-
-        const {data,error} = await supabase
-            .from('loginTest')
-            .update({'loggedIn' : false})
-            .eq('username',user.username)
-            .select();
-
-        if(data){
-            console.log(user)
-            navigate("/")
-        }
-    }
-
 
     return(
         <>
             <NavBar/>
             <div className="Profile">
                 <h1>Profile</h1>
-                <button onClick={logOut}>Log Out</button>
             </div>
         </>
     )
