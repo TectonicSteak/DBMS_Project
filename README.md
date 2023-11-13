@@ -6,5 +6,5 @@ This project aims to achieve a simplified and user-friendly website for teachers
 ## Team members
 Adithya S Prabhu <br/>
 Arun Shaji <br/>
-Gourishankar Shaji <br/>
+Gourisankar Shaji <br/>
 Jose Paul <br/>
