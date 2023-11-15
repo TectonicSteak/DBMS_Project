@@ -13,33 +13,63 @@ const Login = () =>{
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        if(!username || !password){
+    
+        if (!username || !password) {
+          return;
+        }
+    
+        try {
+          const { user, error } = await supabase.auth.signInWithPassword({
+            email: username,
+            password: password,
+          });
+    
+          if (error) {
+            console.error(error.message);
             return;
+          }
+    
+          if (userType === 'student') {
+            navigate('/student_dashboard')
+          } else if (userType === 'teacher') {
+            navigate('/teacher_dashboard')
+          }
+        } catch (error) {
+          console.error(error.message);
         }
-
-        const {data, error} = await supabase
-        .from("loginTest")
-        .update({'loggedIn':true})
-        .eq('username',username)
-        .select()
+      };
+    
 
 
-        if(error){
-            console.log(error)
-        }
-        if(data){
-            console.log(data)
-            if(!user.loggedIn){
-                setUser({username : username,loggedIn : true})
-                console.log(user)
+    // const handleLogin = async (e) => {
+    //     e.preventDefault();
 
-            }
-            navigate("/dashboard")
-            console.log(user)
-        }
+    //     if(!username || !password){
+    //         return;
+    //     }
 
-    }
+    //     const {data, error} = await supabase
+    //     .from("loginTest")
+    //     .update({'loggedIn':true})
+    //     .eq('username',username)
+    //     .select()
+
+
+    //     if(error){
+    //         console.log(error)
+    //     }
+    //     if(data){
+    //         console.log(data)
+    //         if(!user.loggedIn){
+    //             setUser({username : username,loggedIn : true})
+    //             console.log(user)
+
+    //         }
+    //         navigate("/dashboard")
+    //         console.log(user)
+    //     }
+
+    // }
 
     return (
         <div className="login-page h-screen flex flex-col items-center justify-center bg-gray-200">

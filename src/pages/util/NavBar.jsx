@@ -4,10 +4,8 @@ import { UserContext } from "../../App";
 import supabase from "../../config/supabaseClient";
 
 const NavBar = () => {
-  // State for controlling the dropdown menu
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  // Function to toggle the dropdown menu
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -16,18 +14,15 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const logOut = async () => {
-      setUser({userloggedIn:false})
+    try {
+      await supabase.auth.signOut();
 
-      const {data,error} = await supabase
-          .from('loginTest')
-          .update({'loggedIn' : false})
-          .eq('username',user.username)
-          .select();
+      setUser({ username: "", loggedIn: false });
 
-      if(data){
-          console.log(user)
-          navigate("/")
-      }
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error.message);
+    }
   }
 
   return (

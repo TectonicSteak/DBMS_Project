@@ -5,7 +5,7 @@ import { UserContext } from './App'
 
 const useAuth = async () =>{
     const user = useContext(UserContext);
-    return user && user.loggedIn;
+    return user && !user.loggedIn;
 }
 
 function ProtectedRoutes(props) {
