@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import supabase from "../../config/supabaseClient";
 
-import { NavBar, NavBarStu } from "../util";
+import { AttendanceTable, NavBar, NavBarStu } from "../util";
 
 
 const Attendance = () => {
@@ -10,6 +10,7 @@ const Attendance = () => {
         <div>
             <NavBarStu />
             Attendance
+            <AttendanceTable />
         </div>
     )
 }
