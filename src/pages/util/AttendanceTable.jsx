@@ -1,9 +1,21 @@
 import React from 'react';
 
+const AttendanceRow = ({date}) => (
+  <tr>
+    <th>{date}</th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+)
+
 const AttendanceTable = () => {
   return (
-    <div className='attendance_report flex flex-col'>
-      <span className='bg-slate-950'>hello</span>
+    <div className='attendance_report container flex flex-col items-center  flex-initial p-3 space-y-4 '>
+      <p className=' hover:bg-slate-950 ring-1 ring-black text-center'>Attendance Report</p>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -20,26 +32,11 @@ const AttendanceTable = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
+            <AttendanceRow date = "16/11/2023" />
             {/* row 2 */}
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
+            <AttendanceRow date = "17/11/2023" />
             {/* row 3 */}
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            <AttendanceRow date = "18/11/2023" />
           </tbody>
         </table>
       </div>
