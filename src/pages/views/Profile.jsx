@@ -1,12 +1,12 @@
 import {Link,useNavigate} from "react-router-dom"
 import supabase from "../../config/supabaseClient";
-import NavBar from "../util/NavBar";
+import {NavBar, NavBarStu } from "../util";
 
 const Profile = () => {
 
     return(
         <>
-            <NavBar/>
+            <NavBarStu />
             <div className="Profile">
                 <h1>Profile</h1>
             </div>
