@@ -39,38 +39,6 @@ const Login = () =>{
         }
       };
     
-
-
-    // const handleLogin = async (e) => {
-    //     e.preventDefault();
-
-    //     if(!username || !password){
-    //         return;
-    //     }
-
-    //     const {data, error} = await supabase
-    //     .from("loginTest")
-    //     .update({'loggedIn':true})
-    //     .eq('username',username)
-    //     .select()
-
-
-    //     if(error){
-    //         console.log(error)
-    //     }
-    //     if(data){
-    //         console.log(data)
-    //         if(!user.loggedIn){
-    //             setUser({username : username,loggedIn : true})
-    //             console.log(user)
-
-    //         }
-    //         navigate("/dashboard")
-    //         console.log(user)
-    //     }
-
-    // }
-
     return (
         <div className="login-page h-screen flex flex-col items-center justify-center bg-gray-200">
         <h1 className="text-3xl mb-5">Login</h1>
@@ -121,9 +89,9 @@ const Login = () =>{
             No Account?
         </Link>
     
-        <p className="forgot-password text-blue-500 mt-4 cursor-pointer">
+        <Link to='./forgot_password' className="forgot-password text-blue-500 mt-4 cursor-pointer">
             Forgot password?
-        </p>
+        </Link>
         </div>
       );
 }

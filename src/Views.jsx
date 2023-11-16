@@ -6,6 +6,8 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "./pages/util/Profile";
 import StudentDashboard from "./pages/util/StudentDashboard";
 import TeacherDashboard from "./pages/util/TeacherDashboard";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const Views = () =>{
     return(
@@ -13,6 +15,8 @@ const Views = () =>{
             <Routes>
                 <Route path='/' element={<Login />}/>
                 <Route path='/signup' element={<SignUp/>}/>
+                <Route path='/forgot_password' element={<ForgotPassword/>}/>
+                <Route path='/reset_password' element={<ResetPassword/>}/>
                 <Route element={<ProtectedRoutes/>}>
                     <Route path="/student_dashboard" element={<StudentDashboard/>}/>
                     <Route path="/teacher_dashboard" element={<TeacherDashboard/>}/>
