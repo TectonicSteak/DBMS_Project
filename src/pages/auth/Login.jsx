@@ -2,6 +2,7 @@ import { useState,useContext } from "react";
 import supabase from "../../config/supabaseClient";
 import { Link, useNavigate} from "react-router-dom";
 import { UserContext } from "../../App";
+import TextInput from "../util/TextInput";
 
 const Login = () =>{
     const navigate =  useNavigate();
@@ -43,18 +44,9 @@ const Login = () =>{
         <div className="login-page h-screen flex flex-col items-center justify-center bg-gray-200">
         <h1 className="text-3xl mb-5">Login</h1>
         <form className="w-1/3" onSubmit={handleLogin}>
+            <TextInput label="Email" value={username} function={setUsername} />
             <div className="mb-4">
-            <label className="text-lg mb-2">Username</label>
-            <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                className="w-full px-3 py-2 border rounded outline-none"
-            />
-            </div>
-    
-            <div className="mb-4">
+            <TextInput label="Password" value={password} function={setPassword} />
             <label className="text-lg mb-2">User Type</label>
             <select
                 value={userType}
@@ -65,17 +57,7 @@ const Login = () =>{
                 <option value="teacher">Teacher</option>
             </select>
             </div>
-    
-            <div className="mb-4">
-            <label className="text-lg mb-2">Password</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-3 py-2 border rounded outline-none"
-            />
-            </div>
+            
     
             <button
             type="submit"

@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import {Link,useNavigate} from "react-router-dom"
 import supabase from "../../config/supabaseClient";
-import NavBar from "./NavBar";
+import NavBar from "../util/NavBar";
 
-const StudentDashboard = () => {
+const TeacherDashboard = () => {
     
     return (
         <>
             <NavBar/>
             <div className="mainDash">
-                <h1 className="text-lg">STUDENT Dashboard</h1>
+                <h1 className="font-lg">TEACHER Dashboard</h1>
             </div>
         </>
     )
 }
 
-export default StudentDashboard
+export default TeacherDashboard

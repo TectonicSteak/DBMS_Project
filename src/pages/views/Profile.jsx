@@ -1,6 +1,6 @@
 import {Link,useNavigate} from "react-router-dom"
 import supabase from "../../config/supabaseClient";
-import NavBar from "./NavBar";
+import NavBar from "../util/NavBar";
 
 const Profile = () => {
 

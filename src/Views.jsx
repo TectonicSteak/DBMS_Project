@@ -3,9 +3,9 @@ import { Route,Routes,Link } from "react-router-dom";
 import Login from "./pages/auth/Login"
 import SignUp from "./pages/auth/SignUp"
 import ProtectedRoutes from "./ProtectedRoutes";
-import Profile from "./pages/util/Profile";
-import StudentDashboard from "./pages/util/StudentDashboard";
-import TeacherDashboard from "./pages/util/TeacherDashboard";
+import Profile from "./pages/views/Profile";
+import StudentDashboard from "./pages/views/StudentDashboard";
+import TeacherDashboard from "./pages/views/TeacherDashboard";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import supabase from '../../config/supabaseClient';
-import { redirect } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -46,6 +46,9 @@ const ForgotPassword = () => {
         </button>
       </form>
       <p>{message}</p>
+      <Link to={'/'} className="forgot-password text-blue-500 mt-4 cursor-pointer">
+        Back To Login
+      </Link>
     </div>
   );
 };

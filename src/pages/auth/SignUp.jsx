@@ -1,6 +1,7 @@
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
 import { Link } from "react-router-dom";
+import TextInput from "../util/TextInput";
 
 
 const SignUp = () =>{
@@ -35,27 +36,9 @@ const SignUp = () =>{
     <div className="signup-page h-screen flex flex-col items-center justify-center bg-gray-200">
       <h1 className="text-3xl mb-5">Sign Up</h1>
       <form className="w-1/3" onSubmit={handleSignup}>
-        <div className="mb-4">
-          <label className="text-lg mb-2">Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border rounded outline-none"
-          />
-        </div>
+        <TextInput label="Name" value={name} function={setName} />
 
-        <div className="mb-4">
-          <label className="text-lg mb-2">Username</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="w-full px-3 py-2 border rounded outline-none"
-          />
-        </div>
+        <TextInput label="Email" value={username} function={setUsername} />
 
         <div className="mb-4">
           <label className="text-lg mb-2">User Type</label>
@@ -70,29 +53,11 @@ const SignUp = () =>{
         </div>
 
         {userType === 'student' && (
-          <div className="mb-4">
-            <label className="text-lg mb-2">Registration Number</label>
-            <input
-              type="text"
-              value={registrationNumber}
-              onChange={(e) => setRegistrationNumber(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded outline-none"
-            />
-          </div>
+          <TextInput label="Registration Number" value={registrationNumber} function={setRegistrationNumber} />
         )}
 
         {userType === 'teacher' && (
-          <div className="mb-4">
-            <label className="text-lg mb-2">Teacher ID</label>
-            <input
-              type="text"
-              value={teacherId}
-              onChange={(e) => setTeacherId(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded outline-none"
-            />
-          </div>
+          <TextInput label="Teacher ID" value={teacherId} function={setTeacherId} />
         )}
 
         <button
