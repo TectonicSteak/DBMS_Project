@@ -5,41 +5,51 @@ import TextInput from "../util/TextInput";
 
 
 const SignUp = () =>{
-    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password,setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [userType, setUserType] = useState('student'); // Default user type
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [teacherId, setTeacherId] = useState('');
 
     const handleSignup = async (e) => {
-        e.preventDefault();
-
-        if(!username || !password){
-            return;
-        }
-
-        const {data, error} = await supabase
-            .from("loginTest")
-            .select()
-
-        if(error){
-            console.log(error)
-        }
-        if(data){
-            console.log(data)
-        }
-
-    }
+      e.preventDefault();
+  
+      try {
+        const { user, error } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+      } catch (error) {
+        console.error('Error signing up:', error.message);
+      }
+    };
+  
+    const createProfileInDatabase = async ({ username, email, password }) => {
+      const { data, error } = await supabase
+        .from('users')
+        .insert([
+          { username, email, password },
+        ])
+        .select();
+  
+      if (error) {
+        console.error('Error creating user profile:', error.message);
+      } else {
+        console.log('User profile created successfully:', data);
+      }
+    };
 
     
   return (
     <div className="signup-page h-screen flex flex-col items-center justify-center bg-gray-200">
       <h1 className="text-3xl mb-5">Sign Up</h1>
       <form className="w-1/3" onSubmit={handleSignup}>
-        <TextInput label="Name" value={name} function={setName} />
+        <TextInput label="Name" value={username} function={setUsername} />
 
-        <TextInput label="Email" value={username} function={setUsername} />
+        <TextInput label="Email" value={email} function={setEmail} />
 
+        <TextInput label="Password" value={password} function={setPassword} />
         <div className="mb-4">
           <label className="text-lg mb-2">User Type</label>
           <select

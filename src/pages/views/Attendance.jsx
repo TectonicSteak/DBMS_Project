@@ -9,7 +9,6 @@ const Attendance = () => {
     return (
         <div>
             <NavBarStu />
-            Attendance
             <AttendanceTable />
         </div>
     )
