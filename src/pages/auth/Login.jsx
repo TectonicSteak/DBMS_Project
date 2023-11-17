@@ -46,7 +46,7 @@ const Login = () =>{
         <form className="w-1/3" onSubmit={handleLogin}>
             <TextInput label="Email" value={username} function={setUsername} />
             <div className="mb-4">
-            <TextInput label="Password" value={password} function={setPassword} />
+            <TextInput type="password" label="Password" value={password} function={setPassword} />
             <label className="text-lg mb-2">User Type</label>
             <select
                 value={userType}
