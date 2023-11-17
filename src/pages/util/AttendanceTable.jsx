@@ -25,11 +25,31 @@ const AttendanceTable = () => {
     <div className='relative attendance_report flex flex-col w-10/12 mx-auto '>
       <h1 className='ring-black text-center text-4xl py-'>Attendance Report</h1>
       <div className="overflow-x-auto">
-        <AttendanceCard percentage={80} />
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+            <AttendanceRow date="16/11/2023" />
+            {/* row 2 */}
+            <AttendanceRow date="17/11/2023" />
+            {/* row 3 */}
+            <AttendanceRow date="18/11/2023" />
+          </tbody>
+        </table>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default AttendanceTable
+export default AttendanceTable;
