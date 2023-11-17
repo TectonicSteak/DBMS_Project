@@ -5,9 +5,43 @@ import supabase from "../../config/supabaseClient";
 import { AttendanceTable, NavBar, NavBarStu } from "../util";
 import { data } from "autoprefixer";
 
+const fetchStudentData = async (stdId) => {
+
+    const { data, error } = await supabase
+        .from('Student')
+        .select('semester, department')
+        .eq('reg_id', stdId)
+        .single();
+
+    if (error) {
+        console.error('Error fetching student data', error);
+        return null;
+    }
+
+    return data;
+};
+
+const fetchCoursesData = async (semester, department) => {
+    const { data, error } = await supabase
+        .from('Courses')
+        .select('*')
+        .eq('sem', semester)
+        .eq('department', department);
+
+    if (error) {
+        console.error('Error fetching courses data', error);
+        return [];
+    }
+
+    return data;
+};
 
 
-const AttendanceCard = ({ studentId, courseId }) => {
+
+const AttendanceCard = ({ studentId, courseId, courseName }) => {
+
+    const [CourseData, setCourseData] = useState([]);
+
     const [percentage, setPercentage] = useState(0);
     const [totalHours, setTotalHours] = useState(0);
     const [presentCount, setPresentCount] = useState(0);
@@ -34,6 +68,8 @@ const AttendanceCard = ({ studentId, courseId }) => {
         };
 
         fetchAttendance();
+
+
     }, [studentId, courseId]);
 
     const textColor = percentage < 75 ? "#dc2626" : "#65a30d";
@@ -43,6 +79,7 @@ const AttendanceCard = ({ studentId, courseId }) => {
             <div className="relative radial-progress mx-auto my-auto" style={{ "--value": percentage, "--size": "8rem", "--thickness": "1rem", color: textColor }} role="progressbar">{percentage.toFixed(2)}%</div>
             <div className="card-body align-middle">
                 <h2 className="card-title justify-center pb-4">{courseId}</h2>
+                <h2 className="card-subtitle justify-center pb-4 text-center font-bold">{courseName}</h2>
                 <h3>Total Hours : {totalHours}</h3>
                 <h3>Present : {presentCount}</h3>
                 <h3>Absent : {totalHours - presentCount}</h3>
@@ -52,6 +89,24 @@ const AttendanceCard = ({ studentId, courseId }) => {
 };
 
 const Attendance = () => {
+    const [courseData,setCourseData] = useState([]);
+
+    const stdId = 100005;
+
+    useEffect(() => {
+        const getCourseData = async () => {
+            const studentData = await fetchStudentData(stdId);
+
+            if (studentData) {
+                const { semester, department } = studentData;
+                const courses = await fetchCoursesData(semester, department);
+                setCourseData(courses);
+            }
+        };
+
+        getCourseData();
+    }, [stdId]);
+
 
     const attendData = [80, 91, 54, 76, 89, 53]
 
@@ -61,10 +116,12 @@ const Attendance = () => {
             <div className='relative attendance_report flex flex-col w-10/12 mx-auto my-auto'>
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8'>Attendance Report</h1>
                 <div className="overflow-x-auto flex flex-row justify-center space-x-4 align-middle flex-wrap">
-                    {attendData.map((percentage, index) => (
+                    {/* {attendData.map((percentage, index) => (
                         <AttendanceCard key={index} studentId={100005} courseId={"CST201"} />
+                    ))} */}
+                    {courseData.map((course,index) => (
+                        <AttendanceCard key={index} studentId={stdId} courseId={course.course_code} courseName={course.course_name} />
                     ))}
-                    <AttendanceCard studentId={100005} courseId='CST303' />
                 </div>
             </div>
         </div>
