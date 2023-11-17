@@ -1,30 +1,59 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import supabase from "../../config/supabaseClient";
 
 import { AttendanceTable, NavBar, NavBarStu } from "../util";
+import { data } from "autoprefixer";
 
-const AttendanceCard = ({ percentage }) => {
+
+
+const AttendanceCard = ({ studentId, courseId }) => {
+    const [percentage, setPercentage] = useState(0);
+    const [totalHours, setTotalHours] = useState(0);
+    const [presentCount, setPresentCount] = useState(0);
+
+    useEffect(() => {
+        const fetchAttendance = async () => {
+            const { data, error } = await supabase
+                .from("Attendance")
+                .select("*")
+                .eq("std_id", studentId)
+                .eq("course", courseId);
+
+            if (error) {
+                console.error("Error fetching attendance data", error);
+            } else {
+                const totalHours = data.length;
+                const presentCount = data.filter(row => row.present).length;
+                const percentage = totalHours > 0 ? (presentCount / totalHours) * 100 : 0;
+
+                setTotalHours(totalHours);
+                setPresentCount(presentCount);
+                setPercentage(percentage);
+            }
+        };
+
+        fetchAttendance();
+    }, [studentId, courseId]);
 
     const textColor = percentage < 75 ? "#dc2626" : "#65a30d";
 
     return (
         <div className="card w-60 bg-base-100 shadow-xl border align-middle justify-center pt-4 mx-1 my-4 hover:scale-105 transition ease-in-out delay-100 hover:-translate-y-0">
-            <div className="relative radial-progress mx-auto my-auto" style={{ "--value": "70", "--size": "8rem", "--thickness": "1rem", color: textColor }} role="progressbar">{percentage}%</div>
+            <div className="relative radial-progress mx-auto my-auto" style={{ "--value": percentage, "--size": "8rem", "--thickness": "1rem", color: textColor }} role="progressbar">{percentage.toFixed(2)}%</div>
             <div className="card-body align-middle">
-                <h2 className="card-title justify-center pb-4">Course Name</h2>
-                <h3>Total Hours : </h3>
-                <h3>Present : </h3>
-                <h3>Absent : </h3>
+                <h2 className="card-title justify-center pb-4">{courseId}</h2>
+                <h3>Total Hours : {totalHours}</h3>
+                <h3>Present : {presentCount}</h3>
+                <h3>Absent : {totalHours - presentCount}</h3>
             </div>
         </div>
-    )
-}
-
+    );
+};
 
 const Attendance = () => {
 
-    const attendanceData = [80, 91, 54, 76, 89, 53]
+    const attendData = [80, 91, 54, 76, 89, 53]
 
     return (
         <div>
@@ -32,9 +61,10 @@ const Attendance = () => {
             <div className='relative attendance_report flex flex-col w-10/12 mx-auto my-auto'>
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8'>Attendance Report</h1>
                 <div className="overflow-x-auto flex flex-row justify-center space-x-4 align-middle flex-wrap">
-                    {attendanceData.map((percentage, index) => (
-                        <AttendanceCard key={index} percentage={percentage} />
+                    {attendData.map((percentage, index) => (
+                        <AttendanceCard key={index} studentId={100005} courseId={"CST201"} />
                     ))}
+                    <AttendanceCard studentId={100005} courseId='CST303' />
                 </div>
             </div>
         </div>
