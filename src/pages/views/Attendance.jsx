@@ -3,39 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import supabase from "../../config/supabaseClient";
 
 import { AttendanceTable, NavBar, NavBarStu } from "../util";
+import * as FnCalls from '../util/DbmsFunctionCalls';
 import { data } from "autoprefixer";
-
-const fetchStudentData = async (stdId) => {
-
-    const { data, error } = await supabase
-        .from('Student')
-        .select('semester, department')
-        .eq('reg_id', stdId)
-        .single();
-
-    if (error) {
-        console.error('Error fetching student data', error);
-        return null;
-    }
-
-    return data;
-};
-
-const fetchCoursesData = async (semester, department) => {
-    const { data, error } = await supabase
-        .from('Courses')
-        .select('*')
-        .eq('sem', semester)
-        .eq('department', department);
-
-    if (error) {
-        console.error('Error fetching courses data', error);
-        return [];
-    }
-
-    return data;
-};
-
 
 
 const AttendanceCard = ({ studentId, courseId, courseName }) => {
@@ -95,11 +64,11 @@ const Attendance = () => {
 
     useEffect(() => {
         const getCourseData = async () => {
-            const studentData = await fetchStudentData(stdId);
+            const studentData = await FnCalls.fetchStudentData(stdId);
 
             if (studentData) {
                 const { semester, department } = studentData;
-                const courses = await fetchCoursesData(semester, department);
+                const courses = await FnCalls.fetchCoursesData(semester, department);
                 setCourseData(courses);
             }
         };
