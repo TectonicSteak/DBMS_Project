@@ -32,3 +32,11 @@ export const fetchCoursesData = async (semester, department) => {
 
     return data;
 };
+
+// export const fetchAttendance = async () => {
+//     return { data, error } = await supabase
+//         .from("Attendance")
+//         .select("*")
+//         .eq("std_id", studentId)
+//         .eq("course", courseId);
+// }

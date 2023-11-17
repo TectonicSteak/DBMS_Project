@@ -24,6 +24,7 @@ const Views = () =>{
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/student_dashboard/attendance" element={<Attendance />} />
                     <Route path="/student_dashboard/report" element={<Report />} />
+                    <Route path="/student_dashboard/report/id=?" element={<Report />} />
                 </Route>
             </Routes>
         </>

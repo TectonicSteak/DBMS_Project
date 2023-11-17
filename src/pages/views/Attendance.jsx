@@ -2,8 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import supabase from "../../config/supabaseClient";
 
-import { AttendanceTable, NavBar, NavBarStu } from "../util";
-import * as FnCalls from '../util/DbmsFunctionCalls';
+import { NavBar, NavBarStu } from "../util";
+import * as FnCalls from '../util/FunctionCalls';
 import { data } from "autoprefixer";
 
 
