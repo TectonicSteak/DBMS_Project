@@ -1,10 +1,13 @@
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../util/TextInput";
 
 
 const SignUp = () =>{
+
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [name, setName] = useState('');
@@ -26,13 +29,15 @@ const SignUp = () =>{
           return;
         }
 
-        arr = name.split(" ",1);
-
+        const arr = name.split(" ",1);
+        
         if (userType === 'student') {
+          const { data: { user } } = await supabase.auth.getUser()
+          console.log(user);
           try{
             const { data, error } = await supabase
                                   .from('Student')
-                                  .upsert([
+                                  .insert([
                                     {
                                       fname: arr[0],
                                       lname: arr[1],
@@ -40,16 +45,18 @@ const SignUp = () =>{
                                       user_id: user.id,
                                     }
                                   ])
-                                  .select()
+                                  .select();
+            navigate('/student_dashboard');
           }catch(error){
             console.error(error.message);
             return;
           }
         } else if (userType === 'teacher') {
+          const { data: { user } } = await supabase.auth.getUser()
           try{
             const { data, error } = await supabase
                                   .from('Teacher')
-                                  .upsert([
+                                  .insert([
                                     {
                                       fname: arr[0],
                                       lname: arr[1],
@@ -57,7 +64,8 @@ const SignUp = () =>{
                                       user_id: user.id,
                                     }
                                   ])
-                                  .select()
+                                  .select();
+            navigate('/teacher_dashboard');
           }catch(error){
             console.error(error.message);
             return;
@@ -66,12 +74,6 @@ const SignUp = () =>{
 
       } catch (error) {
         console.error('Error signing up:', error.message);
-      }
-  
-      if (error) {
-        console.error('Error creating user profile:', error.message);
-      } else {
-        console.log('User profile created successfully:', data);
       }
     };
 
