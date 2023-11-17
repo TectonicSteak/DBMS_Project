@@ -33,20 +33,23 @@ const SignUp = () =>{
         
         if (userType === 'student') {
           const { data: { user } } = await supabase.auth.getUser()
-          console.log(user);
+          console.log(user.id);
           try{
             const { data, error } = await supabase
                                   .from('Student')
                                   .insert([
                                     {
-                                      fname: arr[0],
-                                      lname: arr[1],
+                                      f_name: arr[0],
+                                      l_name: arr[1],
                                       reg_id: registrationNumber,
                                       user_id: user.id,
                                     }
                                   ])
                                   .select();
+            console.log('Insert Data:', data);
+            console.error('Insert Error:', error);
             navigate('/student_dashboard');
+            console.log(userType);
           }catch(error){
             console.error(error.message);
             return;
@@ -58,13 +61,15 @@ const SignUp = () =>{
                                   .from('Teacher')
                                   .insert([
                                     {
-                                      fname: arr[0],
-                                      lname: arr[1],
+                                      f_name: arr[0],
+                                      l_name: arr[1],
                                       teacher_id: teacherId,
                                       user_id: user.id,
                                     }
                                   ])
                                   .select();
+            console.log('Insert Data:', data);
+            console.error('Insert Error:', error);
             navigate('/teacher_dashboard');
           }catch(error){
             console.error(error.message);
@@ -95,6 +100,7 @@ const SignUp = () =>{
         />
 
         <TextInput
+          type="password"
           label="Password"
           value={password} 
           function={setPassword}
