@@ -3,7 +3,7 @@ import { Route,Routes,Link } from "react-router-dom";
 import Login from "./pages/auth/Login"
 import SignUp from "./pages/auth/SignUp"
 import ProtectedRoutes from "./ProtectedRoutes";
-import { Report, Attendance, Profile, StudentDashboard, TeacherDashboard } from './pages/views'
+import { SemReports, Report, Attendance, Profile, StudentDashboard, TeacherDashboard } from './pages/views'
 // import Profile from "./pages/views/Profile";
 // import StudentDashboard from "./pages/views/StudentDashboard";
 // import TeacherDashboard from "./pages/views/TeacherDashboard";
@@ -24,7 +24,7 @@ const Views = () =>{
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/student_dashboard/attendance" element={<Attendance />} />
                     <Route path="/student_dashboard/report" element={<Report />} />
-                    <Route path="/student_dashboard/report/id=?" element={<Report />} />
+                    <Route path="/student_dashboard/report/:semester" element={<SemReports />} />
                 </Route>
             </Routes>
         </>

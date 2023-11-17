@@ -1,18 +1,25 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
 import { NavBar, NavBarStu } from "../util";
 
 const GradeCard = ({ semester }) => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/student_dashboard/report/${semester}`);
+    };
+
     return (
-        <div className="btn glass bg-zinc-700 text-4xl h-48 mb-10 mx-10 flex justify-center items-center w-56 hover:bg-amber-500">
+        <div className="btn glass bg-zinc-700 text-4xl h-48 mb-10 mx-10 flex justify-center items-center w-56 hover:bg-amber-500" onClick={handleClick}>
             {semester}
         </div>
     );
 };
 
 const Report = () => {
-    const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+    const semesters = [1, 2, 3, 4, 5, 6, 7, 8]
 
     return (
         <div>
