@@ -29,21 +29,24 @@ const Login = () => {
         console.error(error.message);
         return;
       }
+      const currUser = await supabase.auth.getUser();
 
       if (userType === "student") {
-        toast.success('Signed In', {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          });
-        setTimeout(() => {
-          navigate("/student_dashboard");
-        }, 3000);
+
+          toast.success('Signed In', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+          setTimeout(() => {
+            navigate("/student_dashboard");
+          }, 3000);
+
       } else if (userType === "teacher") {
         toast.success('Signed In', {
           position: "bottom-right",

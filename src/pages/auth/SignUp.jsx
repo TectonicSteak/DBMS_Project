@@ -2,6 +2,8 @@ import { useState } from "react";
 import supabase from "../../config/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../util/TextInput";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 
 const SignUp = () =>{
@@ -46,10 +48,19 @@ const SignUp = () =>{
                                     }
                                   ])
                                   .select();
-            console.log('Insert Data:', data);
-            console.error('Insert Error:', error);
-            navigate('/student_dashboard');
-            console.log(userType);
+            toast.success('Signed In', {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+              setTimeout(() => {
+                navigate("/student_dashboard");
+              }, 3000);
           }catch(error){
             console.error(error.message);
             return;
@@ -68,9 +79,19 @@ const SignUp = () =>{
                                     }
                                   ])
                                   .select();
-            console.log('Insert Data:', data);
-            console.error('Insert Error:', error);
-            navigate('/teacher_dashboard');
+            toast.success('Signed In', {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+            setTimeout(() => {
+              navigate("/teacher_dashboard");
+            }, 3000);            
           }catch(error){
             console.error(error.message);
             return;
