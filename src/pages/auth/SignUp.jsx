@@ -84,7 +84,7 @@ const SignUp = () =>{
 
     
   return (
-    <div className="signup-page h-screen flex flex-col items-center justify-center bg-gray-200">
+    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
       <h1 className="text-3xl mb-5">Sign Up</h1>
       <form className="w-1/3" onSubmit={handleSignup}>
         <TextInput
@@ -142,7 +142,7 @@ const SignUp = () =>{
           Sign Up
         </button>
       </form>
-      <Link to='/' className="forgot-password text-blue-500 mt-4 cursor-pointer">
+      <Link to='/' className="text-blue-500 mt-4 cursor-pointer">
         Already Registered?
     </Link>
     </div>

@@ -24,7 +24,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="login-page h-screen flex flex-col items-center justify-center bg-gray-200">
+    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
       <h2 className="text-3xl mb-5">Forgot Password</h2>
       <form className="w-1/3" onSubmit={handleResetPassword}>
         <label className="text-lg mb-2">
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
         </button>
       </form>
       <p>{message}</p>
-      <Link to={'/'} className="forgot-password text-blue-500 mt-4 cursor-pointer">
+      <Link to={'/'} className="text-blue-500 mt-4 cursor-pointer">
         Back To Login
       </Link>
     </div>

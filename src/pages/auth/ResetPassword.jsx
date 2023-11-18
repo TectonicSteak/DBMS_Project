@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
 
@@ -7,9 +7,17 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [hash,setHash] = useState(null);
+
+
+  useEffect(()=>{
+    setHash(window.location.hash);
+  },[]);
 
   const handleSetNewPassword = async (e) => {
     e.preventDefault();
+
+    const notification = toast.loading("Changing Password");
 
     try {
       const { error } = await supabase.auth.updateUser(token, {
@@ -29,7 +37,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="login-page h-screen flex flex-col items-center justify-center bg-gray-200">
+    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
       <h2 className="text-3xl mb-5">Set New Password</h2>
       <form className="w-1/3"  onSubmit={handleSetNewPassword}>
         <label className="text-lg mb-2">
