@@ -27,8 +27,8 @@ const NavBarStu = () => {
   
     return (
       <nav className="bg-gray-800 p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="space-x-4">
+        <div className="container mx-auto flex justify-around items-center">
+          <div className="space-x-4 ">
             <Link
               to="/student_dashboard"
               className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
@@ -63,7 +63,7 @@ const NavBarStu = () => {
                   <button
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-300 w-full rounded-md text-left"
                     onClick={()=>{
-                      navigate("/teacher_dashboard/teacher_profile");
+                      navigate("/student_dashboard/student_profile");
                     }}
                   >
                     Profile
