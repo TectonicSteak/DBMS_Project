@@ -53,7 +53,6 @@ export const getGrade = async (std_id, course_code) => {
 export const calculateGP = (grade) => {
     const gradePoints = { 'A+': 9, 'A': 8.5, 'B+': 8, 'B': 7.5, 'C+': 7, 'C': 6.5, 'D': 6, 'P': 5.5, 'F': 0, 'FE': 0, 'I': 0 }
     return gradePoints[grade] !== undefined ? gradePoints[grade] : 0;
-
 }
 
 export const updateGrade = async (stdId, courseCode, newGrade) => {

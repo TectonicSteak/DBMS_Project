@@ -3,10 +3,7 @@ import { useParams } from 'react-router-dom'
 import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
 
-
-// let allGradeFlag = 0;
-
-const SemReportRow = ({ index, std_id, course, }) => {
+const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) => {
   const [grade, setGrade] = useState('');
 
   const handleKeyDown = (e) => {
@@ -65,6 +62,10 @@ const SemReportRow = ({ index, std_id, course, }) => {
 
 const SemReports = () => {
 
+  const [totalGradePoints , setTotalGradePoints] = useState(() => 0)
+  const [totalCredits , setTotalCredits] = useState(() => 0)
+
+
   const { semester } = useParams();
 
   const [courseData, setCourseData] = useState([]);
@@ -114,7 +115,7 @@ const SemReports = () => {
             </thead>
             <tbody>
               {courseData.map((course, index) =>
-                <SemReportRow key={index} course={course} index={index} std_id={stud_id} />
+                <SemReportRow key={index} course={course} index={index} std_id={stud_id} totalCredits={totalCredits} totalGradePoints={totalGradePoints} />
               )}
             </tbody>
           </table>

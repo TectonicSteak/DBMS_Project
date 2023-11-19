@@ -1,10 +1,28 @@
-import { useContext } from "react";
-import {Link,useNavigate} from "react-router-dom"
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import supabase from "../../config/supabaseClient";
-import {NavBar, NavBarStu } from "../util";
+import { NavBar, NavBarStu } from "../util";
+
+
 
 const StudentDashboard = () => {
-    
+
+    useEffect(() => {
+        const fetchSessionData = async () => {
+            try {
+                const { data: sessionData, error } = await supabase.auth.getUser()
+                console.log(sessionData);
+            }
+            catch (error) {
+                if (error) {
+                    console.log("Error loading Session data : ", error.message);
+                }
+            }
+        }
+        fetchSessionData()
+    }, [])
+
+
     return (
         <>
             <NavBarStu />
