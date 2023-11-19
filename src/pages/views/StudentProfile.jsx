@@ -3,7 +3,7 @@ import { NavBarStu } from "../util";
 
 const StudentProfile = () => {
     return (
-        <>
+        <div className='bg-slate-300 h-screen'>
             <NavBarStu />
             <div className="text-center mt-10">
                 <h1 className="text-3xl font-semibold mb-6">Profile</h1>
@@ -81,7 +81,7 @@ const StudentProfile = () => {
                     </button>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

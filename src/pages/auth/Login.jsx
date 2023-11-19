@@ -68,8 +68,8 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-3xl mb-5">Login</h1>
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-300">
+      <h1 className="text-5xl font-semibold mb-5">Login</h1>
       <form className="w-1/3" onSubmit={handleLogin}>
         <TextInput label="Email" value={username} function={setUsername} />
         <div className="mb-4">
@@ -79,7 +79,7 @@ const Login = () => {
             value={password}
             function={setPassword}
           />
-          <label className="text-lg mb-2">User Type</label>
+          <label className="text-lg font-semibold  mb-2">User Type</label>
           <select
             value={userType}
             onChange={(e) => setUserType(e.target.value)}

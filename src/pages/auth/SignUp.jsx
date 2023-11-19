@@ -105,8 +105,8 @@ const SignUp = () =>{
 
     
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-3xl mb-5">Sign Up</h1>
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-300">
+      <h1 className="text-5xl font-semibold mb-5">Sign Up</h1>
       <form className="w-1/3" onSubmit={handleSignup}>
         <TextInput
           label="Name"
@@ -128,7 +128,7 @@ const SignUp = () =>{
         />
 
         <div className="mb-4">
-          <label className="text-lg mb-2">User Type</label>
+          <label className="text-lg font-semibold  mb-2">User Type</label>
           <select
             value={userType}
             onChange={(e) => setUserType(e.target.value)}

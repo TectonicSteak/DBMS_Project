@@ -2,10 +2,11 @@ import {React,useContext}from 'react'
 import { Outlet} from 'react-router-dom'
 import Login from './pages/auth/Login'
 import { UserContext } from './App'
+import supabase from './config/supabaseClient'
 
 const useAuth = async () =>{
-    const user = useContext(UserContext);
-    return user && !user.loggedIn;
+    const user = await supabase.auth.getUser();
+    return user;
 }
 
 function ProtectedRoutes(props) {

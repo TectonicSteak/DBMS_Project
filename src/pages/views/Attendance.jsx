@@ -80,7 +80,7 @@ const Attendance = () => {
     const attendData = [80, 91, 54, 76, 89, 53]
 
     return (
-        <div>
+        <div className='bg-slate-300 h-screen'>
             <NavBarStu />
             <div className='relative attendance_report flex flex-col w-10/12 mx-auto my-auto'>
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8'>Attendance Report</h1>
