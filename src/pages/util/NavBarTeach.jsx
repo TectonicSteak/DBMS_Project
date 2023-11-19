@@ -42,6 +42,12 @@ const NavBarTeach = () => {
             Attendance
           </Link>
           <Link
+            to="/teacher_dashboard/mark_entry"
+            className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Mark Entry
+          </Link>
+          <Link
             to="/teacher_dashboard/update_marks"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >

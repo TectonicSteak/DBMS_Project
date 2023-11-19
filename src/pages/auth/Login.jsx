@@ -34,8 +34,6 @@ const Login = () => {
 
       const isStudent =  await supabase.from('Student').select('*').eq('user_id',currUser.data.user.id);
       const isTeacher =  await supabase.from('Teacher').select('*').eq('user_id',currUser.data.user.id);
-      console.log(isStudent.data.length);
-      console.log(isTeacher.data.length);
 
       if (userType === "student" && isStudent.data.length!=0) {
 
