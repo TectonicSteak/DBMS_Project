@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom'
 import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
 
-let allGradeFlag = 0;
-// const [totalCredits, setCredits] = useState(() => 0)
+// let allGradeFlag = 0;
 
 const SemReportRow = ({ index, course }) => {
   const [grade, setGrade] = useState('');
@@ -14,11 +13,10 @@ const SemReportRow = ({ index, course }) => {
       try {
         const data = await FnCalls.getGrade('f66b2611-6481-4a37-a018-47a6c3e9a1e6', course.course_code);
         setGrade(data.grade);
-        // onGradeFetch(data.grade, course.credits)
 
       } catch (error) {
         console.error('Error fetching grade', error);
-        allGradeFlag = 1;
+        // allGradeFlag = 1;
       }
     };
 
@@ -44,21 +42,9 @@ const SemReports = () => {
 
   const { semester } = useParams();
 
-  // const [totalGradePoints, setTotalGradePoints] = useState(() => 0)
-  // const [totalCredits, setTotalCredits] = useState(() => 0)
   const [courseData, setCourseData] = useState([]);
 
   const stdId = 100005;
-
-  // const handleGradeFetch = (grade, credits) => {
-  //   const gradePoints = FnCalls.calculateGP(grade) * credits;
-  //   setTotalGradePoints(prevTotal => prevTotal + gradePoints);
-  //   setTotalCredits(prevTotal => prevTotal + credits);
-  // };
-
-  // useEffect(() => {
-  //   console.log('Total Grade Points:', totalGradePoints);
-  // }, [totalGradePoints]);
 
   useEffect(() => {
     const getCourseData = async () => {

@@ -55,10 +55,3 @@ export const calculateGP = (grade) => {
     return gradePoints[grade]
 
 }
-// export const fetchAttendance = async () => {
-//     return { data, error } = await supabase
-//         .from("Attendance")
-//         .select("*")
-//         .eq("std_id", studentId)
-//         .eq("course", courseId);
-// }
