@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
 
+
 // let allGradeFlag = 0;
 
 const SemReportRow = ({ index, std_id, course, }) => {
@@ -40,20 +41,24 @@ const SemReportRow = ({ index, std_id, course, }) => {
 
 
   return (
-    <tr className='text-center'>
+    <tr className='text-center hover:bg-slate-200'>
       <th className='border-2 border-slate-950'>{index + 1}</th>
       <td className='border-2 border-slate-950'>{course.course_code}</td>
       <td className='border-2 border-slate-950'>{course.course_name}</td>
       <td className='border-2 border-slate-950'>{course.credits}</td>
-      {/* <td className='border-2 border-slate-950'>{grade}</td> */}
-      <td><input
-        name='grade'
-        type='text'
-        value={grade}
-        placeholder='Input grade'
-        className='grade-input p-2 w-10'
-        onChange={(e) => setGrade(e.target.value)}
-        onKeyDown={handleKeyDown} /></td>
+      <td>
+        <div className='flex flex-row justify-center align-bottom text-center'>
+          <input
+            name='grade'
+            type='text'
+            value={grade}
+            placeholder='Input grade'
+            className='grade-input p-2 w-10 text-center bg-inherit'
+            onChange={(e) => setGrade(e.target.value)}
+            onKeyDown={handleKeyDown} />
+        </div>
+
+      </td>
     </tr>
   );
 };
@@ -89,13 +94,22 @@ const SemReports = () => {
         <div className="overflow-x-auto flex w-auto mx-32">
           <table className="table border-2 border-slate-950 border-solid">
             {/* head */}
-            <thead className='bg-amber-400 border-2 border-slate-950'>
+            <thead className='bg-amber-400 border-2 border-slate-950 p-10'>
               <tr className=' text-center border-2 border-slate-950'>
-                <th>No</th>
+                <th className='p-4'>No</th>
                 <th className='border-2 border-slate-950'>Course Code</th>
                 <th className='border-2 border-slate-950'>Course Name</th>
                 <th className='border-2 border-slate-950'>Credits</th>
-                <th className='border-2 border-slate-950'>Grade</th>
+                <th className='border-2 border-slate-950 text-center'>
+                  <div className='flex flex-row justify-center w-auto'>
+                    <p className='text-center'>
+                      Grade
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                    </svg>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
