@@ -11,6 +11,7 @@ const ForgotPassword = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email,{redirectTo: `https://student-management-dbms.vercel.app/reset_password`});
+      
 
       if (error) {
         throw error;
