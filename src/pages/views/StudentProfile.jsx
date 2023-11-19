@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavBarStu } from "../util";
 
-const Profile = () => {
+const StudentProfile = () => {
     return (
         <>
             <NavBarStu />
@@ -85,4 +85,4 @@ const Profile = () => {
     );
 }
 
-export default Profile;
+export default StudentProfile;

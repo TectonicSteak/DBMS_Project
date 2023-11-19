@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import supabase from "../../config/supabaseClient";
 
-const NavBar = () => {
+const NavBarTeach = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -27,19 +27,25 @@ const NavBar = () => {
 
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="mx-auto flex justify-between items-center">
         <div className="space-x-4">
           <Link
-            to="/dashboard"
+            to="/teacher_dashboard"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
             Dashboard
           </Link>
           <Link
-            to="/profile"
+            to="/teacher_dashboard/update_attendence"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
-            Profile
+            Attendance
+          </Link>
+          <Link
+            to="/teacher_dashboard/update_marks"
+            className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Mark Updates
           </Link>
         </div>
         <div className="ml-auto">
@@ -56,8 +62,11 @@ const NavBar = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
                 <button
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-300 w-full rounded-md text-left"
+                  onClick={()=>{
+                    navigate("/teacher_dashboard/teacher_profile")
+                  }}
                 >
-                  Notifications
+                  Profile
                 </button>
                 <button
                   onClick={logOut}
@@ -75,4 +84,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBarTeach;

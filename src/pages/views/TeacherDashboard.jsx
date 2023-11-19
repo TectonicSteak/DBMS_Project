@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import {Link,useNavigate} from "react-router-dom"
 import supabase from "../../config/supabaseClient";
-import NavBar from "../util/NavBar";
+import NavBarTeach from "../util/NavBarTeach";
 
 const TeacherDashboard = () => {
     
     return (
         <>
-            <NavBar/>
+            <NavBarTeach/>
             <div className="mainDash">
                 <h1 className="font-lg">TEACHER Dashboard</h1>
             </div>
