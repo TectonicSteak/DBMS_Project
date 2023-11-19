@@ -5,13 +5,25 @@ import * as FnCalls from '../util/FunctionCalls'
 
 // let allGradeFlag = 0;
 
-const SemReportRow = ({ index, course }) => {
+const SemReportRow = ({ index, std_id, course, }) => {
   const [grade, setGrade] = useState('');
+
+  const handleKeyDown = (e) => {
+
+    if (e.key === 'Enter') {
+      const x = FnCalls.updateGrade(std_id, course.course_code, grade)
+        .then(() => console.log('Grade updated'))
+        .catch((error) => console.error('Error updating grade', error));
+
+      console.log(x)
+    }
+  }
+
 
   useEffect(() => {
     const fetchGrade = async () => {
       try {
-        const data = await FnCalls.getGrade('f66b2611-6481-4a37-a018-47a6c3e9a1e6', course.course_code);
+        const data = await FnCalls.getGrade(std_id, course.course_code);
         setGrade(data.grade);
 
       } catch (error) {
@@ -28,12 +40,20 @@ const SemReportRow = ({ index, course }) => {
 
 
   return (
-    <tr>
+    <tr className='text-center'>
       <th className='border-2 border-slate-950'>{index + 1}</th>
       <td className='border-2 border-slate-950'>{course.course_code}</td>
       <td className='border-2 border-slate-950'>{course.course_name}</td>
       <td className='border-2 border-slate-950'>{course.credits}</td>
-      <td className='border-2 border-slate-950'>{grade}</td>
+      {/* <td className='border-2 border-slate-950'>{grade}</td> */}
+      <td><input
+        name='grade'
+        type='text'
+        value={grade}
+        placeholder='Input grade'
+        className='grade-input p-2 w-10'
+        onChange={(e) => setGrade(e.target.value)}
+        onKeyDown={handleKeyDown} /></td>
     </tr>
   );
 };
@@ -45,6 +65,7 @@ const SemReports = () => {
   const [courseData, setCourseData] = useState([]);
 
   const stdId = 100005;
+  const stud_id = 'f66b2611-6481-4a37-a018-47a6c3e9a1e6';
 
   useEffect(() => {
     const getCourseData = async () => {
@@ -69,7 +90,7 @@ const SemReports = () => {
           <table className="table border-2 border-slate-950 border-solid">
             {/* head */}
             <thead className='bg-amber-400 border-2 border-slate-950'>
-              <tr className='border-2 border-slate-950'>
+              <tr className=' text-center border-2 border-slate-950'>
                 <th>No</th>
                 <th className='border-2 border-slate-950'>Course Code</th>
                 <th className='border-2 border-slate-950'>Course Name</th>
@@ -78,17 +99,13 @@ const SemReports = () => {
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
               {courseData.map((course, index) =>
-                <SemReportRow key={index} course={course} index={index} />
+                <SemReportRow key={index} course={course} index={index} std_id={stud_id} />
               )}
             </tbody>
           </table>
         </div>
       </>
-      {/* <div>
-        <h2>SGPA : {totalGradePoints / totalCredits}</h2>
-      </div> */}
     </>
   )
 }

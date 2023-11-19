@@ -52,6 +52,23 @@ export const getGrade = async (std_id, course_code) => {
 
 export const calculateGP = (grade) => {
     const gradePoints = { 'A+': 9, 'A': 8.5, 'B+': 8, 'B': 7.5, 'C+': 7, 'C': 6.5, 'D': 6, 'P': 5.5, 'F': 0, 'FE': 0, 'I': 0 }
-    return gradePoints[grade]
+    return gradePoints[grade] !== undefined ? gradePoints[grade] : 0;
 
+}
+
+export const updateGrade = async (stdId, courseCode, newGrade) => {
+    try {
+        const { error, data } = await supabase
+            .from('Marks')
+            .update({ grade: newGrade })
+            .eq('student_id', stdId)
+            .eq('course_id', courseCode);
+
+        if (error) throw error;
+
+        return data; // You might return the updated data or a success message
+    } catch (error) {
+        console.error('Error updating grade for student:', stdId, 'Error:', error.message);
+        return error; // Returning the error for handling in the calling function
+    }
 }
