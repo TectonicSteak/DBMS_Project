@@ -8,77 +8,96 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
-  const location = useLocation();
-  const [hash, setHash] = useState(null);
-
-  useEffect(() => {
-    const hashValue = location.hash;
-    setHash(hashValue);
-  }, [location]);
-
+  const location = useLocation();  
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const notification = toast.loading("Changing Password");
+    const notification = toast.loading("Changing Password",{position: "bottom-right"});
 
     try {
-      if (!hash) {
-        return toast.error("Sorry, Invalid token", {
-          id: notification,
-        });
-        
-      } else if (hash) {
-        const hashArr = hash
-          .substring(1)
-          .split("&")
-          .map((param) => param.split("="));
-
-        let type;
-        let accessToken;
-        for (const [key, value] of hashArr) {
-          if (key === "type") {
-            type = value;
-          } else if (key === "access_token") {
-            accessToken = value;
-          }
-        }
-
-        if (
-          type !== "recovery" ||
-          !accessToken ||
-          typeof accessToken === "object"
-        ) {
-          toast.error("Invalid access token or type", {
-            id: notification,
-          });
-          return;
-        }
-
-        const { error } = await supabase.auth.updateUser(accessToken, {
-          password: newPassword,
-        });
-
-        if (error) {
-          toast.error(error.message, {
-            id: notification,
-          });
-        } else if (!error) {
-          toast.success("Password Changed", {
-            id: notification,
-          });
-          
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Sorry Error occured", {
-        id: notification,
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword,
       });
+
+      if (error) {
+        throw error;
+      }
+
+      setTimeout(() => {
+        toast.dismiss(notification);
+      }, 1000);
+      toast.success("Password Changed", {
+        autoClose: 1500,
+        position: "bottom-right"
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2500); 
+    } catch (error) {
+      setTimeout(() => {
+        toast.dismiss(notification);
+      }, 1500);
+      toast.error("Invalid Password", {
+        autoClose: 1500,
+        position: "bottom-right"
+      });
+      console.error('Error resetting password:', error.message);
     }
   };
 
+
+
+  //   try {
+  //     if (!hash) {
+  //       return toast.error("Sorry, Invalid token", {
+  //         id: notification,
+  //       });
+        
+  //     } else if (hash) {
+  //       const hashArr = hash
+  //         .substring(1)
+  //         .split("&")
+  //         .map((param) => param.split("="));
+
+  //       let type;
+  //       let accessToken;
+  //       for (const [key, value] of hashArr) {
+  //         if (key === "type") {
+  //           type = value;
+  //         } else if (key === "access_token") {
+  //           accessToken = value;
+  //         }
+  //       }
+
+  //       if (
+  //         type !== "recovery" ||
+  //         !accessToken ||
+  //         typeof accessToken === "object"
+  //       ) {
+  //         toast.error("Invalid access token or type", {
+  //           id: notification,
+  //         });
+  //         return;
+  //       }
+
+  //       const { error } = await supabase.auth.updateUser(accessToken, {
+  //         password: newPassword,
+  //       });
+
+  //       if (error) {
+  //         toast.error(error.message, {
+  //           id: notification,          
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Sorry Error occured", {
+  //       id: notification,
+  //     });
+  //   }
+  
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
       <h2 className="text-3xl mb-5">Set New Password</h2>

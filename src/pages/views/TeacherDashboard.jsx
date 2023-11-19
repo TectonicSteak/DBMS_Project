@@ -8,7 +8,7 @@ const TeacherDashboard = () => {
     return (
         <>
             <NavBarTeach/>
-            <div className="mainDash">
+            <div className="">
                 <h1 className="font-lg">TEACHER Dashboard</h1>
             </div>
         </>
