@@ -74,7 +74,7 @@ const Attendance = () => {
         };
 
         getCourseData();
-    }, [stdId]);
+    }, []);
 
 
     const attendData = [80, 91, 54, 76, 89, 53]
