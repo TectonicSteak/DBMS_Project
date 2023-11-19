@@ -31,36 +31,41 @@ const SignUp = () =>{
           return;
         }
 
-        const arr = name.split(" ",1);
+        const arr = name.split(" ");
         
         if (userType === 'student') {
           const { data: { user } } = await supabase.auth.getUser()
           console.log(user.id);
+          console.log(arr);
           try{
             const { data, error } = await supabase
                                   .from('Student')
                                   .insert([
                                     {
                                       f_name: arr[0],
-                                      l_name: arr[1],
+                                      l_name: arr.slice(1).join(" "),
                                       reg_id: registrationNumber,
                                       user_id: user.id,
                                     }
                                   ])
                                   .select();
-            toast.success('Signed In', {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+            if (error) {
+              console.error('Error inserting student data:', error.message);
+            } else {
+              toast.success('Signed In', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
               });
               setTimeout(() => {
                 navigate("/student_dashboard");
               }, 3000);
+            }
           }catch(error){
             console.error(error.message);
             return;
@@ -73,7 +78,7 @@ const SignUp = () =>{
                                   .insert([
                                     {
                                       f_name: arr[0],
-                                      l_name: arr[1],
+                                      l_name: arr.slice(1).join(" "),
                                       teacher_id: teacherId,
                                       user_id: user.id,
                                     }
@@ -105,8 +110,8 @@ const SignUp = () =>{
 
     
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-3xl mb-5">Sign Up</h1>
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-300">
+      <h1 className="text-5xl font-semibold mb-5">Sign Up</h1>
       <form className="w-1/3" onSubmit={handleSignup}>
         <TextInput
           label="Name"
@@ -128,7 +133,7 @@ const SignUp = () =>{
         />
 
         <div className="mb-4">
-          <label className="text-lg mb-2">User Type</label>
+          <label className="text-lg font-semibold  mb-2">User Type</label>
           <select
             value={userType}
             onChange={(e) => setUserType(e.target.value)}
@@ -158,12 +163,12 @@ const SignUp = () =>{
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer"
+          className="w-full bg-blue-500 hover:bg-blue-700 font-semibold text-white py-2 px-4 rounded cursor-pointer"
         >
           Sign Up
         </button>
       </form>
-      <Link to='/' className="text-blue-500 mt-4 cursor-pointer">
+      <Link to='/' className="text-blue-500 font-semibold mt-4 cursor-pointer">
         Already Registered?
     </Link>
     </div>

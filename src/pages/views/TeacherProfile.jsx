@@ -3,7 +3,7 @@ import NavBarTeach from '../util/NavBarTeach';
 
 const TeacherProfile = () => {
     return (
-        <>
+        <div className='bg-slate-300 h-screen'>
             <NavBarTeach />
             <div className="text-center mt-10">
                 <h1 className="text-3xl font-semibold mb-6">Profile</h1>
@@ -81,7 +81,7 @@ const TeacherProfile = () => {
                     </button>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

@@ -24,12 +24,12 @@ const StudentDashboard = () => {
 
 
     return (
-        <>
+        <div className='bg-slate-300 h-screen'>
             <NavBarStu />
             <div className="mainDash">
                 <h1 className="text-lg">STUDENT Dashboard</h1>
             </div>
-        </>
+        </div>
     )
 }
 

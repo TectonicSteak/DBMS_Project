@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../util/TextInput";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
+import { StudentDashboard } from "../views";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,10 @@ const Login = () => {
       }
       const currUser = await supabase.auth.getUser();
 
-      if (userType === "student") {
+      const isStudent =  await supabase.from('Student').select('*').eq('user_id',currUser.data.user.id);
+      const isTeacher =  await supabase.from('Teacher').select('*').eq('user_id',currUser.data.user.id);
+
+      if (userType === "student" && isStudent.data.length!=0) {
 
           toast.success('Signed In', {
             position: "bottom-right",
@@ -47,7 +51,7 @@ const Login = () => {
             navigate("/student_dashboard");
           }, 3000);
 
-      } else if (userType === "teacher") {
+      } else if (userType === "teacher" && isTeacher.data.length!=0) {
         toast.success('Signed In', {
           position: "bottom-right",
           autoClose: 2000,
@@ -61,6 +65,11 @@ const Login = () => {
         setTimeout(() => {
           navigate("/teacher_dashboard");
         }, 3000);
+      } else{
+        toast.error("User not Found", {
+          autoClose: 1500,
+          position: "bottom-right"
+        });
       }
     } catch (error) {
       console.error(error.message);
@@ -68,8 +77,8 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-3xl mb-5">Login</h1>
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-300">
+      <h1 className="text-5xl font-semibold mb-5">Login</h1>
       <form className="w-1/3" onSubmit={handleLogin}>
         <TextInput label="Email" value={username} function={setUsername} />
         <div className="mb-4">
@@ -79,7 +88,7 @@ const Login = () => {
             value={password}
             function={setPassword}
           />
-          <label className="text-lg mb-2">User Type</label>
+          <label className="text-lg font-semibold  mb-2">User Type</label>
           <select
             value={userType}
             onChange={(e) => setUserType(e.target.value)}
@@ -92,7 +101,7 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
         >
           Login
         </button>
@@ -100,14 +109,14 @@ const Login = () => {
 
       <Link
         to="/signup"
-        className="text-blue-500 mt-4 cursor-pointer"
+        className="text-blue-500 font-semibold mt-4 cursor-pointer"
       >
         No Account?
       </Link>
 
       <Link
         to="./forgot_password"
-        className="text-blue-500 mt-4 cursor-pointer"
+        className="text-blue-500 font-semibold mt-4 cursor-pointer"
       >
         Forgot password?
       </Link>

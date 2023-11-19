@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import supabase from '../../config/supabaseClient';
 import NavBarTeach from '../util/NavBarTeach';
 
-const UpdateMarks = () => {
+const MarkEntry = () => {
   const [students, setStudents] = useState([]);
   const [semester, setSemester] = useState('');
   const [className, setClassName] = useState('');
@@ -37,7 +37,7 @@ const UpdateMarks = () => {
      <div className='bg-gray-100 min-h-screen'>
       <NavBarTeach />
       <div className="container mx-auto p-8 bg-white shadow-lg rounded-lg">
-        <h1 className="text-3xl mb-6 font-semibold">Update Marks</h1>
+        <h1 className="text-3xl mb-6 font-semibold">Mark Entry</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
           <div>
             <label className='block text-sm font-medium text-gray-600'>Semester:</label>
@@ -112,7 +112,7 @@ const UpdateMarks = () => {
           <thead>
             <tr className="bg-gray-200">
               <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Name</th>
-              <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Present</th>
+              <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Mark</th>
             </tr>
           </thead>
           <tbody>
@@ -120,7 +120,9 @@ const UpdateMarks = () => {
               <tr key={student.reg_id} className="border-b text-center">
                 <td className="py-2 px-6">{`${student.f_name} ${student.l_name}`}</td>
                 <td className="py-2 px-6">
-                  <input type="checkbox" className='w-5 h-5 text-indigo-500' />
+                  <div className="">
+                    <input type="number" className=' text-center w-full' />
+                  </div>
                 </td>
               </tr>
             ))}
@@ -136,4 +138,4 @@ const UpdateMarks = () => {
     </div>
   );
 };
-export default UpdateMarks;
+export default MarkEntry;

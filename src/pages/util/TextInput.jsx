@@ -7,7 +7,7 @@ function TextInput(props) {
   return (
     <>
       <div className="mb-4">
-        <label className="text-lg mb-2">{props.label}</label>
+        <label className="text-lg font-semibold mb-2">{props.label}</label>
         <input
           type={inputType}
           value={props.value}

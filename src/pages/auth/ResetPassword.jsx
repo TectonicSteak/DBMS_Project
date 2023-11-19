@@ -46,61 +46,10 @@ const ResetPassword = () => {
       console.error('Error resetting password:', error.message);
     }
   };
-
-
-
-  //   try {
-  //     if (!hash) {
-  //       return toast.error("Sorry, Invalid token", {
-  //         id: notification,
-  //       });
-        
-  //     } else if (hash) {
-  //       const hashArr = hash
-  //         .substring(1)
-  //         .split("&")
-  //         .map((param) => param.split("="));
-
-  //       let type;
-  //       let accessToken;
-  //       for (const [key, value] of hashArr) {
-  //         if (key === "type") {
-  //           type = value;
-  //         } else if (key === "access_token") {
-  //           accessToken = value;
-  //         }
-  //       }
-
-  //       if (
-  //         type !== "recovery" ||
-  //         !accessToken ||
-  //         typeof accessToken === "object"
-  //       ) {
-  //         toast.error("Invalid access token or type", {
-  //           id: notification,
-  //         });
-  //         return;
-  //       }
-
-  //       const { error } = await supabase.auth.updateUser(accessToken, {
-  //         password: newPassword,
-  //       });
-
-  //       if (error) {
-  //         toast.error(error.message, {
-  //           id: notification,          
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Sorry Error occured", {
-  //       id: notification,
-  //     });
-  //   }
   
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h2 className="text-3xl mb-5">Set New Password</h2>
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-300">
+      <h2 className="text-5xl font-semibold mb-5">Set New Password</h2>
       <form className="w-1/3"  onSubmit={handleSubmit}>
         <label className="text-lg mb-2">
           New Password:
