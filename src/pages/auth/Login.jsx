@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../util/TextInput";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
+import { StudentDashboard } from "../views";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,12 @@ const Login = () => {
       }
       const currUser = await supabase.auth.getUser();
 
-      if (userType === "student") {
+      const isStudent =  await supabase.from('Student').select('*').eq('user_id',currUser.data.user.id);
+      const isTeacher =  await supabase.from('Teacher').select('*').eq('user_id',currUser.data.user.id);
+      console.log(isStudent.data.length);
+      console.log(isTeacher.data.length);
+
+      if (userType === "student" && isStudent.data.length!=0) {
 
           toast.success('Signed In', {
             position: "bottom-right",
@@ -47,7 +53,7 @@ const Login = () => {
             navigate("/student_dashboard");
           }, 3000);
 
-      } else if (userType === "teacher") {
+      } else if (userType === "teacher" && isTeacher.data.length!=0) {
         toast.success('Signed In', {
           position: "bottom-right",
           autoClose: 2000,
@@ -61,6 +67,11 @@ const Login = () => {
         setTimeout(() => {
           navigate("/teacher_dashboard");
         }, 3000);
+      } else{
+        toast.error("User not Found", {
+          autoClose: 1500,
+          position: "bottom-right"
+        });
       }
     } catch (error) {
       console.error(error.message);
@@ -92,7 +103,7 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
         >
           Login
         </button>
@@ -100,14 +111,14 @@ const Login = () => {
 
       <Link
         to="/signup"
-        className="text-blue-500 mt-4 cursor-pointer"
+        className="text-blue-500 font-semibold mt-4 cursor-pointer"
       >
         No Account?
       </Link>
 
       <Link
         to="./forgot_password"
-        className="text-blue-500 mt-4 cursor-pointer"
+        className="text-blue-500 font-semibold mt-4 cursor-pointer"
       >
         Forgot password?
       </Link>

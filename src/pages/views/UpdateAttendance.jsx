@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../config/supabaseClient';
 import NavBarTeach from '../util/NavBarTeach';
+import { list } from 'postcss';
 
 const UpdateAttendance = () => {
   const [students, setStudents] = useState([]);
@@ -11,7 +12,7 @@ const UpdateAttendance = () => {
 
   const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
   const classes = ['A', 'B', 'C'];
-  const departments = ['1','Math', 'Science', 'Arts'];
+  const departments = ['1','Math', 'Science', 'Arts']; 
 
   const fetchStudents = async () => {
     const { data, error } = await supabase
@@ -29,7 +30,7 @@ const UpdateAttendance = () => {
       return;
     }
 
-    setStudents(data);
+    setStudents(data); 
   };
 
   return (
@@ -37,13 +38,13 @@ const UpdateAttendance = () => {
       <NavBarTeach/>
       <div className="container mx-auto p-4">
         <h1 className="text-3xl mb-4">Update Attendance</h1>
-        <div className="flex space-x-4 mb-4">
+        <div className="flex flex-wrap space-x-4 mb-4">
           <div>
             <label className='pr-2'>Semester:</label>
             <select
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
-              className="border pt-1 pl-2 pr-2 pb-1"
+              className="border px-2 py-1"
             >
               <option value="" disabled>Select Semester</option>
               {semesters.map((sem) => (
@@ -56,7 +57,7 @@ const UpdateAttendance = () => {
             <select
               value={className}
               onChange={(e) => setClassName(e.target.value)}
-              className="border pt-1 pl-2 pr-2 pb-1"
+              className="border px-2 py-1"
             >
               <option value="" disabled>Select Class</option>
               {classes.map((cls) => (
@@ -69,7 +70,7 @@ const UpdateAttendance = () => {
             <select
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
-              className="border pt-1 pl-2 pr-2 pb-1"
+              className="border px-2 py-1"
             >
               <option value="" disabled>Select Department</option>
               {departments.map((dept) => (
@@ -79,7 +80,7 @@ const UpdateAttendance = () => {
           </div>
           <div className="">
             <label className='pr-2'>Date:</label>
-            <input type='date' className='border pt-1 pl-2 pr-2 pb-1' onChange={(e)=>setDate(e.target.value)}/>
+            <input type='date' className='border px-2 py-1' onChange={(e)=>setDate(e.target.value)}/>
           </div>
           <button className='bg-gray-700 text-white pr-2 pl-2 rounded-md' onClick={fetchStudents}>Search</button>
         </div>
@@ -103,6 +104,7 @@ const UpdateAttendance = () => {
             ))}
           </tbody>
         </table>
+        {students.length > 0 && <button className='bg-gray-700 text-white px-2 py-1 mt-5 rounded-md'>Submit</button>}
       </div>
     </div>
   );
