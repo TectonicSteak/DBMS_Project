@@ -8,12 +8,12 @@ const UpdateAttendance = () => {
   const [className, setClassName] = useState('');
   const [department, setDepartment] = useState('');
   const [date, setDate] = useState('');
-  const [courseName,setCourseName] = useState('');
+  const [courseName, setCourseName] = useState('');
 
   const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
-  const classes = ['A', 'B', 'C'];
-  const departments = ['1', 'Math', 'Science', 'Arts'];
-  const courses = ['FLAT','MOSS','SS','MM'];
+  const classes = ['A', 'B', 'C', 'U'];
+  const departments = ['1', '2', '3', '4'];
+  const courses = ['FLAT', 'MOSS', 'SS', 'MM'];
 
   const fetchStudents = async () => {
     const { data, error } = await supabase
@@ -31,6 +31,30 @@ const UpdateAttendance = () => {
 
     setStudents(data);
   };
+
+  const handleSubmit = async () => {
+    const attendanceData = students.map(student => ({
+      std_id: student.reg_id,
+      course: courseName, // Assuming this is the course code
+      present: attendance[student.reg_id] || false, // Default to false if not checked
+      date: date // Assuming this is in a correct date format
+    }));
+
+    try {
+      const { error } = await supabase
+        .from('Attendance')
+        .upsert(attendanceData); // Using upsert to handle both insert and update
+
+      if (error) throw error;
+
+      console.log('Attendance updated successfully');
+      // Additional actions upon successful submission
+    } catch (error) {
+      console.error('Error submitting attendance', error);
+      // Handle errors
+    }
+  };
+
 
   return (
     <div className='bg-gray-100 min-h-screen'>
@@ -92,7 +116,8 @@ const UpdateAttendance = () => {
           </div>
           <div className="">
             <label className='block text-sm font-medium text-gray-600'>Date:</label>
-            <input type='date' className='border rounded-md p-2 w-full' onChange={(e)=>setDate(e.target.value)}/>
+            <input type='date' className='border rounded-md p-2 w-full' onChange={(e) => setDate(e.target.value)} />
+            {console.log(date)}
           </div>
         </div>
         <button className='bg-indigo-500 text-white px-4 py-2 mt-2 mb-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800' onClick={fetchStudents}>Search</button>

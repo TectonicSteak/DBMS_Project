@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
 
-const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) => {
+
+const SemReportRow = ({ index, std_id, course}) => {
   const [grade, setGrade] = useState('');
 
   const handleKeyDown = (e) => {
@@ -17,7 +18,6 @@ const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) 
     }
   }
 
-
   useEffect(() => {
     const fetchGrade = async () => {
       try {
@@ -25,17 +25,15 @@ const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) 
         setGrade(data.grade);
 
       } catch (error) {
-        console.error('Error fetching grade', error);
-        // allGradeFlag = 1;
+        console.error('Error fetching grade', error); 
       }
     };
 
     fetchGrade();
 
 
+
   }, [course.course_code]); // Depend on course_code
-
-
 
   return (
     <tr className='text-center hover:bg-slate-200'>
@@ -48,7 +46,7 @@ const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) 
           <input
             name='grade'
             type='text'
-            value={grade}
+            value={grade ? grade : 0}
             placeholder='Input grade'
             className='grade-input p-2 w-10 text-center bg-inherit'
             onChange={(e) => setGrade(e.target.value)}
@@ -61,10 +59,6 @@ const SemReportRow = ({ index, std_id, course, totalGradePoints, totalCredits}) 
 };
 
 const SemReports = () => {
-
-  const [totalGradePoints , setTotalGradePoints] = useState(() => 0)
-  const [totalCredits , setTotalCredits] = useState(() => 0)
-
 
   const { semester } = useParams();
 
@@ -88,7 +82,7 @@ const SemReports = () => {
 
 
   return (
-    <div className='bg-slate-300 h-screen'>
+    <div className=' h-screen'>
       <NavBarStu />
       <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold' >Semester : {semester}</h1>
       <>
@@ -96,7 +90,7 @@ const SemReports = () => {
           <table className="table border-2 border-slate-950 border-solid">
             {/* head */}
             <thead className='bg-amber-400 border-2 border-slate-950 p-10'>
-              <tr className=' text-center border-2 border-slate-950'>
+              <tr className=' hover:bg-slate-300 text-center border-2 border-slate-950'>
                 <th className='p-4'>No</th>
                 <th className='border-2 border-slate-950'>Course Code</th>
                 <th className='border-2 border-slate-950'>Course Name</th>
@@ -115,7 +109,7 @@ const SemReports = () => {
             </thead>
             <tbody>
               {courseData.map((course, index) =>
-                <SemReportRow key={index} course={course} index={index} std_id={stud_id} totalCredits={totalCredits} totalGradePoints={totalGradePoints} />
+                <SemReportRow key={index} course={course} index={index} std_id={stud_id} />
               )}
             </tbody>
           </table>
