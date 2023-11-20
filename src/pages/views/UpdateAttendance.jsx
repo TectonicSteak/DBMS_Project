@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../config/supabaseClient';
 import NavBarTeach from '../util/NavBarTeach';
+import { fetchStudentData, fetchCoursesData } from '../util/FunctionCalls';
+import { ToastContainer, toast } from 'react-toastify';
 
 const UpdateAttendance = () => {
   const [students, setStudents] = useState([]);
@@ -9,16 +11,18 @@ const UpdateAttendance = () => {
   const [department, setDepartment] = useState('');
   const [date, setDate] = useState('');
   const [courseName, setCourseName] = useState('');
+  const [attendance, setAttendance] = useState({});
+  const [hour, setHour] = useState();
+  const [courses, setCourses] = useState([]);
 
   const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
   const classes = ['A', 'B', 'C', 'U'];
   const departments = ['1', '2', '3', '4'];
-  const courses = ['FLAT', 'MOSS', 'SS', 'MM'];
 
   const fetchStudents = async () => {
     const { data, error } = await supabase
       .from('Student')
-      .select('f_name, l_name, reg_id')
+      .select('f_name, l_name, reg_id, user_id')
       .eq('semester', semester)
       .eq('class', className)
       .eq('department', department)
@@ -32,11 +36,14 @@ const UpdateAttendance = () => {
     setStudents(data);
   };
 
+
+
   const handleSubmit = async () => {
     const attendanceData = students.map(student => ({
-      std_id: student.reg_id,
-      course: courseName, // Assuming this is the course code
-      present: attendance[student.reg_id] || false, // Default to false if not checked
+      std_id: student.user_id,
+      course: courseName,
+      present: attendance[student.user_id] ? true : false,
+      hour: hour, // Default to false if not checked
       date: date // Assuming this is in a correct date format
     }));
 
@@ -47,7 +54,16 @@ const UpdateAttendance = () => {
 
       if (error) throw error;
 
-      console.log('Attendance updated successfully');
+      toast.success('Attendance updated successfully', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       // Additional actions upon successful submission
     } catch (error) {
       console.error('Error submitting attendance', error);
@@ -55,6 +71,12 @@ const UpdateAttendance = () => {
     }
   };
 
+
+  const getCourses = async () => {
+    if (semester && department) {
+      setCourses(await fetchCoursesData(semester, department))
+    }
+  }
 
   return (
     <div className='bg-gray-100 min-h-screen'>
@@ -107,17 +129,31 @@ const UpdateAttendance = () => {
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
               className="border rounded-md p-2 w-full"
+              onClick={getCourses}
             >
               <option value="" disabled>Select Course</option>
               {courses.map((course) => (
-                <option key={course} value={course}>{course}</option>
-              ))}
+                <option key={course.course_code} value={course.course_code}>{course.course_code}</option>
+              )
+              )}
             </select>
           </div>
           <div className="">
             <label className='block text-sm font-medium text-gray-600'>Date:</label>
             <input type='date' className='border rounded-md p-2 w-full' onChange={(e) => setDate(e.target.value)} />
-            {console.log(date)}
+          </div>
+          <div>
+            <label className='block text-sm font-medium text-gray-600'>Hour:</label>
+            <select
+              value={hour}
+              onChange={(e) => setHour(e.target.value)}
+              className="border rounded-md p-2 w-full"
+            >
+              <option value="" disabled>Select Course</option>
+              {[1, 2, 3, 4, 5, 6].map((hour) => (
+                <option key={hour} value={hour}>{hour}</option>
+              ))}
+            </select>
           </div>
         </div>
         <button className='bg-indigo-500 text-white px-4 py-2 mt-2 mb-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800' onClick={fetchStudents}>Search</button>
@@ -131,10 +167,14 @@ const UpdateAttendance = () => {
           </thead>
           <tbody>
             {students.map((student) => (
-              <tr key={student.reg_id} className="border-b text-center">
+              <tr key={student.user_id} className="border-b text-center">
                 <td className="py-2 px-6">{`${student.f_name} ${student.l_name}`}</td>
                 <td className="py-2 px-6">
-                  <input type="checkbox" className='w-5 h-5 text-indigo-500' />
+                  <input type="checkbox" className='w-5 h-5 text-indigo-500'
+                    key={student.user_id}
+                    checked={attendance[student.user_id] || false}
+                    onChange={(e) => setAttendance({ ...attendance, [student.user_id]: e.target.checked })}
+                  />
                 </td>
               </tr>
             ))}
@@ -142,11 +182,14 @@ const UpdateAttendance = () => {
         </table>}
 
         {students.length > 0 && (
-          <button className='bg-indigo-500 text-white px-4 py-2 mt-6 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800'>
+          <button className='bg-indigo-500 text-white px-4 py-2 mt-6 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800'
+            onClick={handleSubmit}
+          >
             Submit
           </button>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

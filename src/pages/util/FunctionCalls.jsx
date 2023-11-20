@@ -7,7 +7,7 @@ export const fetchStudentData = async (stdId) => {
     const { data, error } = await supabase
         .from('Student')
         .select('semester, department')
-        .eq('reg_id', stdId)
+        .eq('user_id', stdId)
         .single();
 
     if (error) {

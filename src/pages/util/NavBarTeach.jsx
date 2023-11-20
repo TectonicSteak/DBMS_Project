@@ -41,7 +41,7 @@ const NavBarTeach = () => {
           >
             Attendance
           </Link>
-          <Link
+          {/* <Link
             to="/teacher_dashboard/mark_entry"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
@@ -52,7 +52,7 @@ const NavBarTeach = () => {
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
             Mark Updates
-          </Link>
+          </Link> */}
         </div>
         <div className="ml-auto">
           {/* Dropdown Menu */}

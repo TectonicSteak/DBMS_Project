@@ -60,7 +60,7 @@ const AttendanceCard = ({ studentId, courseId, courseName }) => {
 const Attendance = () => {
     const [courseData,setCourseData] = useState([]);
 
-    const stdId = 100005;
+    const stdId = 'f66b2611-6481-4a37-a018-47a6c3e9a1e6';
 
     useEffect(() => {
         const getCourseData = async () => {
