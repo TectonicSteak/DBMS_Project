@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
+import supabase from '../../config/supabaseClient';
 
 
 const SemReportRow = ({ index, std_id, course}) => {
@@ -64,12 +65,11 @@ const SemReports = () => {
 
   const [courseData, setCourseData] = useState([]);
 
-  const stdId = 100005;
   const stud_id = 'f66b2611-6481-4a37-a018-47a6c3e9a1e6';
 
   useEffect(() => {
     const getCourseData = async () => {
-      const studentData = await FnCalls.fetchStudentData(stdId);
+      const studentData = await FnCalls.fetchStudentData(stud_id);
       const { sem, department } = studentData;
 
       const courses = await FnCalls.fetchCoursesData(semester, department);

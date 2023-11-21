@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../App";
 import supabase from "../../config/supabaseClient";
 
 const NavBarStu = () => {
@@ -10,14 +9,11 @@ const NavBarStu = () => {
       setDropdownOpen(!isDropdownOpen);
     };
   
-    const {user,setUser} = useContext(UserContext);
     const navigate = useNavigate();
   
     const logOut = async () => {
       try {
         await supabase.auth.signOut();
-  
-        setUser({ username: "", loggedIn: false });
   
         navigate("/");
       } catch (error) {

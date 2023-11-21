@@ -17,7 +17,11 @@ const UpdateAttendance = () => {
 
   const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
   const classes = ['A', 'B', 'C', 'U'];
-  const departments = ['1', '2', '3', '4'];
+  const departments = [['1','Computer Science and Engineering'],
+                       ['2','Electrical and Electronics Engineering'],
+                       ['3','Electronics and Communcation Engineering'],
+                       ['4','Electronics and Biomedical Engineering']
+                      ];
 
   const fetchStudents = async () => {
     const { data, error } = await supabase
@@ -50,7 +54,7 @@ const UpdateAttendance = () => {
     try {
       const { error } = await supabase
         .from('Attendance')
-        .upsert(attendanceData); // Using upsert to handle both insert and update
+        .upsert(attendanceData); 
 
       if (error) throw error;
 
@@ -64,7 +68,6 @@ const UpdateAttendance = () => {
         progress: undefined,
         theme: "light",
       });
-      // Additional actions upon successful submission
     } catch (error) {
       console.error('Error submitting attendance', error);
       // Handle errors
@@ -119,7 +122,7 @@ const UpdateAttendance = () => {
             >
               <option value="" disabled>Select Department</option>
               {departments.map((dept) => (
-                <option key={dept} value={dept}>{dept}</option>
+                <option key={dept[0]} value={dept[0]}>{dept[1]}</option>
               ))}
             </select>
           </div>
@@ -149,7 +152,6 @@ const UpdateAttendance = () => {
               onChange={(e) => setHour(e.target.value)}
               className="border rounded-md p-2 w-full"
             >
-              <option value="" disabled>Select Course</option>
               {[1, 2, 3, 4, 5, 6].map((hour) => (
                 <option key={hour} value={hour}>{hour}</option>
               ))}

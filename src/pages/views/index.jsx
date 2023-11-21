@@ -9,3 +9,4 @@ export { default as Activity } from './Activity';
 export { default as UpdateAttendance } from './UpdateAttendance';
 export { default as MarkEntry } from './MarkEntry';
 export { default as UpdateMarks } from './UpdateMarks';
+export { default as DeleteAttendance } from './DeleteAttendance';

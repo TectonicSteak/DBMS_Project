@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../App";
 import supabase from "../../config/supabaseClient";
 
 const NavBarTeach = () => {
@@ -10,14 +9,11 @@ const NavBarTeach = () => {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const {user,setUser} = useContext(UserContext);
   const navigate = useNavigate();
 
   const logOut = async () => {
     try {
       await supabase.auth.signOut();
-
-      setUser({ username: "", loggedIn: false });
 
       navigate("/");
     } catch (error) {
@@ -39,20 +35,14 @@ const NavBarTeach = () => {
             to="/teacher_dashboard/update_attendence"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
-            Attendance
-          </Link>
-          {/* <Link
-            to="/teacher_dashboard/mark_entry"
-            className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Mark Entry
+            Update Attendance
           </Link>
           <Link
-            to="/teacher_dashboard/update_marks"
+            to="/teacher_dashboard/delete_attendence"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >
-            Mark Updates
-          </Link> */}
+            Delete Attendence
+          </Link>
         </div>
         <div className="ml-auto">
           {/* Dropdown Menu */}
