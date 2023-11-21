@@ -5,7 +5,7 @@ import * as FnCalls from '../util/FunctionCalls'
 import supabase from '../../config/supabaseClient';
 
 
-const SemReportRow = ({ index, std_id, course}) => {
+const SemReportRow = ({ index, std_id, course }) => {
   const [grade, setGrade] = useState('');
 
   const handleKeyDown = (e) => {
@@ -26,7 +26,7 @@ const SemReportRow = ({ index, std_id, course}) => {
         setGrade(data.grade);
 
       } catch (error) {
-        console.error('Error fetching grade', error); 
+        console.error('Error fetching grade', error);
       }
     };
 
@@ -49,7 +49,7 @@ const SemReportRow = ({ index, std_id, course}) => {
             type='text'
             value={grade ? grade : 0}
             placeholder='Input grade'
-            className='grade-input p-2 w-10 text-center bg-inherit'
+            className='p-2 w-10 text-center bg-inherit'
             onChange={(e) => setGrade(e.target.value)}
             onKeyDown={handleKeyDown} />
         </div>
