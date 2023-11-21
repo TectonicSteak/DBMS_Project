@@ -4,7 +4,7 @@ import { NavBarStu } from '../util'
 import * as FnCalls from '../util/FunctionCalls'
 
 
-const SemReportRow = ({ index, std_id, course}) => {
+const SemReportRow = ({ index, std_id, course }) => {
   const [grade, setGrade] = useState('');
 
   const handleKeyDown = (e) => {
@@ -25,7 +25,7 @@ const SemReportRow = ({ index, std_id, course}) => {
         setGrade(data.grade);
 
       } catch (error) {
-        console.error('Error fetching grade', error); 
+        console.error('Error fetching grade', error);
       }
     };
 
@@ -48,7 +48,7 @@ const SemReportRow = ({ index, std_id, course}) => {
             type='text'
             value={grade ? grade : 0}
             placeholder='Input grade'
-            className='grade-input p-2 w-10 text-center bg-inherit'
+            className='p-2 w-10 text-center bg-inherit'
             onChange={(e) => setGrade(e.target.value)}
             onKeyDown={handleKeyDown} />
         </div>
@@ -64,13 +64,12 @@ const SemReports = () => {
 
   const [courseData, setCourseData] = useState([]);
 
-  const stdId = 100005;
   const stud_id = 'f66b2611-6481-4a37-a018-47a6c3e9a1e6';
 
   useEffect(() => {
     const getCourseData = async () => {
-      const studentData = await FnCalls.fetchStudentData(stdId);
-      const { sem, department } = studentData;
+      const studentData = await FnCalls.fetchStudentData(stud_id);
+      const { department } = studentData;
 
       const courses = await FnCalls.fetchCoursesData(semester, department);
       setCourseData(courses)
