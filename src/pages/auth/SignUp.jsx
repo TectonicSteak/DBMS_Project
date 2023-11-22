@@ -136,7 +136,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-300">
-      <h1 className="text-6xl font-bold text-gray-700 mb-8">Sign Up</h1>
+      <h1 className="text-6xl font-bold text-gray-700 mb-8 mt-8">Sign Up</h1>
       <form className="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-md" onSubmit={handleSignup}>
 
         <div className="mb-4">
@@ -269,7 +269,7 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
-      <Link to='/' className="text-blue-500 font-medium mt-5 hover:text-blue-600 transition duration-300">
+      <Link to='/' className="text-blue-500 font-medium mt-5 hover:text-blue-600 transition duration-300 mb-10">
         Already Registered?
       </Link>
       <ToastContainer
