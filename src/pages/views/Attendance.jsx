@@ -20,7 +20,7 @@ const AttendanceCard = ({ userId, courseId, courseName }) => {
             const { data, error } = await supabase
                 .from("Attendance")
                 .select("*")
-                .eq("user_id", userId)
+                .eq("std_id", userId)
                 .eq("course", courseId);
 
             if (error) {
@@ -113,7 +113,7 @@ const Attendance = () => {
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold'>Attendance Report</h1>
                 <div className="overflow-x-auto flex flex-row justify-center space-x-4 align-middle flex-wrap">
                     {courseData.map((course, index) => (
-                        <AttendanceCard key={index} studentId={user} courseId={course.course_code} courseName={course.course_name} />
+                        <AttendanceCard key={index} userId={user} courseId={course.course_code} courseName={course.course_name} />
                     ))}
                 </div>
             </div>
