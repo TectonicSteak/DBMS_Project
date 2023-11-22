@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { NavBarStu, TextInput } from "../util";
 import supabase from "../../config/supabaseClient";
 import * as FnCalls from '../util/FunctionCalls'
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 
 const StudentProfile = () => {
@@ -53,11 +55,45 @@ const StudentProfile = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
+
+        if(phone.length != 10){
+            toast.error("Phone number must be 10 digits long", {
+                autoClose: 1500,
+                position: "bottom-right",
+              });
+            return;
+        }
+
+        const isValidEmail = (email) => {
+            const regex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+            return regex.test(email);
+          };
+
+          if (!isValidEmail(email)) {
+            toast.error("Please enter a valid Gmail address", {
+              autoClose: 1500,
+              position: "bottom-right"
+            });
+            return;
+          }
+
+
         const x = await FnCalls.updateStudentProfile(user, dob, arr[0], arr.slice(1).join(" "), phone, email,address,cgpa,gender)
-            .then(() => console.log('Profile Updated'))
+            .then(() => {
+                console.log('Profile Updated');
+                toast.success('Profile Updated', {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+            })
             .catch((error) => console.error('Error updating Profile', error));
 
-        console.log(x)
     }
 
     console.log(user, userData)
@@ -167,6 +203,7 @@ const StudentProfile = () => {
                     </button>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 }

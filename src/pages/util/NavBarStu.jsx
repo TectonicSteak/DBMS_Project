@@ -25,12 +25,12 @@ const NavBarStu = () => {
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-around items-center">
           <div className="space-x-4 ">
-            <Link
+            {/* <Link
               to="/student_dashboard"
               className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
             >
               Dashboard
-            </Link>
+            </Link> */}
             <Link
               to="/student_dashboard/report"
               className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"

@@ -26,12 +26,6 @@ const NavBarTeach = () => {
       <div className="mx-auto flex justify-between items-center">
         <div className="space-x-4">
           <Link
-            to="/teacher_dashboard"
-            className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Dashboard
-          </Link>
-          <Link
             to="/teacher_dashboard/update_attendence"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
           >

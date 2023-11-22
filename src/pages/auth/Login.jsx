@@ -16,6 +16,19 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const isValidEmail = (email) => {
+      const regex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+      return regex.test(email);
+    };
+
+    if (!isValidEmail(username) || !password) {
+      toast.error("Please enter a valid Gmail address", {
+        autoClose: 1500,
+        position: "bottom-right",
+      });
+      return;
+    }
+
     if (!username || !password) {
       return;
     }
@@ -48,7 +61,7 @@ const Login = () => {
             theme: "light",
             });
           setTimeout(() => {
-            navigate("/student_dashboard");
+            navigate("/student_dashboard/report");
           }, 3000);
 
       } else if (userType === "teacher" && isTeacher.data.length!=0) {
@@ -63,7 +76,7 @@ const Login = () => {
           theme: "light",
           });
         setTimeout(() => {
-          navigate("/teacher_dashboard");
+          navigate("/teacher_dashboard/update_attendence");
         }, 3000);
       } else{
         toast.error("User not Found", {

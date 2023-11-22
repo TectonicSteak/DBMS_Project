@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import NavBarTeach from '../util/NavBarTeach';
 import * as FnCalls from '../util/FunctionCalls'
+import { ToastContainer } from 'react-toastify';
 
 const TeacherProfile = () => {
     const [user, setUser] = useState('');
@@ -47,8 +48,29 @@ const TeacherProfile = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
+
+        if(phone.length != 10){
+            toast.error("Phone number must be 10 digits long", {
+                autoClose: 1500,
+                position: "bottom-right",
+              });
+            return;
+        }
+
         const x = await FnCalls.updateTeacherProfile( userData.user_id , arr[0], arr.slice(1).join(" "), dept, phone)
-            .then(() => console.log('Profile Updated'))
+            .then(() => {
+                console.log('Profile Updated');
+                toast.success('Profile Updated', {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+        })
             .catch((error) => console.error('Error updating Profile', error));
 
         console.log(x)
@@ -116,6 +138,7 @@ const TeacherProfile = () => {
                     </button>
                 </form>
             </div>
+            <ToastContainer/>
         </div>
     );
 }
