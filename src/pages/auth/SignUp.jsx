@@ -203,10 +203,10 @@ const SignUp = () => {
 
             <div className="mb-4">
                 <label className="block text-lg font-semibold mb-2">
-                    Class:
+                    Semester:
                 </label>
                 <select
-                    value={Class}
+                    value={semester}
                     onChange={(e) => setSemester(e.target.value)}
                     className="border rounded-md p-2 w-full"
                     >

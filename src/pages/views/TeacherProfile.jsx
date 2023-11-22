@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import NavBarTeach from '../util/NavBarTeach';
 import * as FnCalls from '../util/FunctionCalls'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const TeacherProfile = () => {
     const [user, setUser] = useState('');
