@@ -1,7 +1,60 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import NavBarTeach from '../util/NavBarTeach';
+import * as FnCalls from '../util/FunctionCalls'
 
 const TeacherProfile = () => {
+    const [user, setUser] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [dept, setDept] = useState('');
+    const [userData, setUserData] = useState('');
+    const departments = [[1,'Computer Science and Engineering'],
+                       [2,'Electrical and Electronics Engineering'],
+                       [3,'Electronics and Communcation Engineering'],
+                       [4,'Electronics and Biomedical Engineering']
+                      ];
+
+
+    const arr = name.split(' ')
+
+
+    useEffect(() => {
+        const fetchAndSetUser = async () => {
+            try {
+                const userId = await FnCalls.fetchUserId();
+                if (userId) {
+                    setUser(userId);
+                    const user_data = await FnCalls.fetchTeacherData(userId);
+                    setUserData(user_data);
+                }
+            } catch (error) {
+                console.error("Error fetching User", error);
+            }
+        };
+
+        fetchAndSetUser();
+    }, [])
+
+    useEffect(() => {
+        if (userData) {
+            setName(`${userData.f_name} ${userData.l_name}`);
+            setPhone(userData.ph_no);
+            setDept(userData.dept_ID);
+        }
+    }, [userData]);
+
+
+    const handleSubmit = async (event) => {
+
+        event.preventDefault();
+        const x = await FnCalls.updateTeacherProfile( userData.user_id , arr[0], arr.slice(1).join(" "), dept, phone)
+            .then(() => console.log('Profile Updated'))
+            .catch((error) => console.error('Error updating Profile', error));
+
+        console.log(x)
+    }
+
+    console.log(user, userData)
     return (
         <div className='bg-slate-300 h-screen'>
             <NavBarTeach />
@@ -14,26 +67,33 @@ const TeacherProfile = () => {
                         className="w-full h-full object-cover"
                     />
                 </div>
-                <form className="w-full max-w-lg mx-auto">
+                <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Full Name:
+                            Name:
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
                             placeholder="Full Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Email:
+                            Department:
                         </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="email"
-                            placeholder="Email"
-                        />
+                        <select
+                            value={dept}
+                            onChange={(e) => setDept(e.target.value)}
+                            className="border rounded-md p-2 w-full"
+                            >
+                            <option value="" disabled>Select Department</option>
+                            {departments.map((dept) => (
+                                <option key={dept[0]} value={dept[0]}>{dept[1]}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -43,17 +103,11 @@ const TeacherProfile = () => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="tel"
                             placeholder="Phone"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Date of Birth:
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="date"
-                        />
-                    </div>
+
                     <button
                         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"

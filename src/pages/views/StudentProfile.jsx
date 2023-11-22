@@ -11,8 +11,11 @@ const StudentProfile = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [dob, setDob] = useState('');
+    const [address, setAddress] = useState('');
+    const [cgpa, setCgpa] = useState('');
     const [phone, setPhone] = useState('');
-    const [userData, setUserData] = useState('')
+    const [userData, setUserData] = useState('');
+    const [gender,setGender] = useState('');
 
     const arr = name.split(' ')
 
@@ -40,6 +43,9 @@ const StudentProfile = () => {
             setDob(userData.dob);
             setEmail(userData.email);
             setPhone(userData.ph_no);
+            setAddress(userData.address);
+            setCgpa(userData.CGPA);
+            setGender(userData.gender);
         }
     }, [userData]);
 
@@ -47,8 +53,7 @@ const StudentProfile = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        // fetchUser()
-        const x = await FnCalls.updateStudentProfile(user, dob, arr[0], arr.slice(1).join(" "), phone, email)
+        const x = await FnCalls.updateStudentProfile(user, dob, arr[0], arr.slice(1).join(" "), phone, email,address,cgpa,gender)
             .then(() => console.log('Profile Updated'))
             .catch((error) => console.error('Error updating Profile', error));
 
@@ -117,6 +122,43 @@ const StudentProfile = () => {
                             onChange={(e) => setDob(e.target.value)}
                         />
                     </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            Gender:
+                        </label>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            placeholder="Gender"
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            Address:
+                        </label>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            placeholder="Address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            CGPA:
+                        </label>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="number"
+                            placeholder="CGPA"
+                            value={cgpa}
+                            onChange={(e) => setCgpa(e.target.value)}
+                        />
+                    </div>
+                    
                     <button
                         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type='submit'

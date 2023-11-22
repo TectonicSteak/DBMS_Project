@@ -72,11 +72,11 @@ export const updateGrade = async (stdId, courseCode, newGrade) => {
     }
 }
 
-export const updateStudentProfile = async (stdId, newDob, newFName, newLName, newPhone, newEmail) => {
+export const updateStudentProfile = async (stdId, newDob, newFName, newLName, newPhone, newEmail,newAddress, newCgpa, newGender) => {
     try {
         const { error, data } = await supabase
             .from('Student')
-            .update({ dob: newDob, f_name: newFName, l_name: newLName, ph_no: newPhone, email: newEmail })
+            .update({ dob: newDob, f_name: newFName, l_name: newLName, ph_no: newPhone, email: newEmail, address: newAddress, CGPA: newCgpa,gender: newGender })
             .eq('user_id', stdId)
 
         return data;
@@ -86,6 +86,23 @@ export const updateStudentProfile = async (stdId, newDob, newFName, newLName, ne
         return error;
     }
 }
+
+
+export const updateTeacherProfile = async ( teachId , newFname, newLname, newDept, newPhone) => {
+    try {
+        const { error, data } = await supabase
+            .from('Teacher')
+            .update({f_name: newFname, l_name: newLname, dept_ID: newDept, ph_no: newPhone})
+            .eq('user_id', teachId)
+
+        return data;
+    }
+    catch (error) {
+        console.error("Erorr updating Teacher Profile for Teacher: ", teachId)
+        return error;
+    }
+}
+
 
 export const fetchUserId = async () => {
     try {
@@ -105,6 +122,22 @@ export const fetchUserData = async (userId) => {
             .select('*')
             .eq('user_id', userId)
 
+        console.log(userData);
+        return userData[0]
+    }
+    catch (error) {
+        console.log('Error fetching user data');
+    }
+}
+
+export const fetchTeacherData = async (userId) => {
+    try {
+        const { data: userData } = await supabase
+            .from('Teacher')
+            .select('*')
+            .eq('user_id', userId)
+
+        console.log(userData);
         return userData[0]
     }
     catch (error) {
