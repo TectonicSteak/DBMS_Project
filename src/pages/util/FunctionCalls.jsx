@@ -4,18 +4,21 @@ import supabase from "../../config/supabaseClient";
 
 export const fetchStudentData = async (stdId) => {
 
-    const { data, error } = await supabase
-        .from('Student')
-        .select('semester, department')
-        .eq('user_id', stdId)
-        .single();
+    try {
+        const { data, error } = await supabase
+            .from('Student')
+            .select('semester, department')
+            .eq('user_id', stdId)
+            .single()
 
-    if (error) {
-        console.error('Error fetching student data', error);
-        return null;
+        return data;
+
+    }
+    catch (error) {
+        console.error("Error fetching Student Data for user:", stdId)
+        return error
     }
 
-    return data;
 };
 
 export const fetchCoursesData = async (semester, department) => {
@@ -40,6 +43,25 @@ export const getGrade = async (std_id, course_code) => {
         .select('*')
         .eq('student_id', std_id)
         .eq('course_id', course_code)
+        .eq('exam_type', 'semester')
+        .single()
+
+    if (error) {
+        console.log('Error fetching Grade for student :', std_id, 'for course : ', course_code, error);
+        return []
+    }
+
+    return data;
+}
+
+export const getMark = async (std_id, course_code) => {
+
+    const { data, error } = await supabase
+        .from('Marks')
+        .select('*')
+        .eq('student_id', std_id)
+        .eq('course_id', course_code)
+        .eq('exam_type', 'internals')
         .single()
 
     if (error) {
@@ -72,11 +94,11 @@ export const updateGrade = async (stdId, courseCode, newGrade) => {
     }
 }
 
-export const updateStudentProfile = async (stdId, newDob, newFName, newLName, newPhone, newEmail,newAddress, newCgpa, newGender) => {
+export const updateStudentProfile = async (stdId, newDob, newFName, newLName, newPhone, newEmail, newAddress, newCgpa, newGender) => {
     try {
         const { error, data } = await supabase
             .from('Student')
-            .update({ dob: newDob, f_name: newFName, l_name: newLName, ph_no: newPhone, email: newEmail, address: newAddress, CGPA: newCgpa,gender: newGender })
+            .update({ dob: newDob, f_name: newFName, l_name: newLName, ph_no: newPhone, email: newEmail, address: newAddress, CGPA: newCgpa, gender: newGender })
             .eq('user_id', stdId)
 
         return data;
@@ -88,11 +110,11 @@ export const updateStudentProfile = async (stdId, newDob, newFName, newLName, ne
 }
 
 
-export const updateTeacherProfile = async ( teachId , newFname, newLname, newDept, newPhone) => {
+export const updateTeacherProfile = async (teachId, newFname, newLname, newDept, newPhone) => {
     try {
         const { error, data } = await supabase
             .from('Teacher')
-            .update({f_name: newFname, l_name: newLname, dept_ID: newDept, ph_no: newPhone})
+            .update({ f_name: newFname, l_name: newLname, dept_ID: newDept, ph_no: newPhone })
             .eq('user_id', teachId)
 
         return data;

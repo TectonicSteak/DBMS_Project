@@ -8,7 +8,7 @@ const GradeCard = ({ semester }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/student_dashboard/report/${semester}`);
+        navigate(`/student_dashboard/marks/${semester}`);
     };
 
     return (
@@ -18,14 +18,14 @@ const GradeCard = ({ semester }) => {
     );
 };
 
-const Report = () => {
+const Marks = () => {
     const semesters = [1, 2, 3, 4, 5, 6, 7, 8]
 
     return (
         <div className='bg-slate-300 h-auto'>
             <NavBarStu />
             <div className='container mx-auto p-6'>
-                <h1 className='text-center text-5xl font-bold text-gray-700 mb-10'>Academic Report</h1>
+                <h1 className='text-center text-5xl font-bold text-gray-700 mb-10'>Internal Marks Report</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 text-slate-200 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {semesters.map((semester, index) => (
                         <GradeCard key={index} semester={semester} />
@@ -36,4 +36,4 @@ const Report = () => {
     );
 };
 
-export default Report;
+export default Marks;

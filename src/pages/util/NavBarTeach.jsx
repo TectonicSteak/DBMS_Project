@@ -37,6 +37,12 @@ const NavBarTeach = () => {
           >
             Delete Attendence
           </Link>
+          <Link
+            to="/teacher_dashboard/update_marks"
+            className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Update Marks
+          </Link>
         </div>
         <div className="ml-auto">
           {/* Dropdown Menu */}
@@ -52,7 +58,7 @@ const NavBarTeach = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
                 <button
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-300 w-full rounded-md text-left"
-                  onClick={()=>{
+                  onClick={() => {
                     navigate("/teacher_dashboard/teacher_profile")
                   }}
                 >

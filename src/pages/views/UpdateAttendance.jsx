@@ -82,7 +82,7 @@ const UpdateAttendance = () => {
   }
 
   return (
-    <div className='bg-gray-100 min-h-screen'>
+    <div className='bg-gray-100 min-h-screen '>
       <NavBarTeach />
       <div className="container mx-auto p-8 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl mb-6 font-semibold">Update Attendance</h1>

@@ -7,7 +7,7 @@ import * as FnCalls from '../util/FunctionCalls';
 import { data } from "autoprefixer";
 
 
-const AttendanceCard = ({ studentId, courseId, courseName }) => {
+const AttendanceCard = ({ userId, courseId, courseName }) => {
 
     const [CourseData, setCourseData] = useState([]);
 
@@ -20,7 +20,7 @@ const AttendanceCard = ({ studentId, courseId, courseName }) => {
             const { data, error } = await supabase
                 .from("Attendance")
                 .select("*")
-                .eq("std_id", studentId)
+                .eq("user_id", userId)
                 .eq("course", courseId);
 
             if (error) {
@@ -39,12 +39,12 @@ const AttendanceCard = ({ studentId, courseId, courseName }) => {
         fetchAttendance();
 
 
-    }, [studentId, courseId]);
+    }, [userId, courseId]);
 
     const textColor = percentage < 75 ? "#dc2626" : "#65a30d";
 
     return (
-        <div className="card w-60 bg-base-100 shadow-xl border align-middle justify-center pt-4 mx-1 my-4 hover:scale-105 transition ease-in-out delay-100 hover:-translate-y-0">
+        <div className="card w-60 shadow-xl border align-middle justify-center pt-4 mx-1 my-4 hover:scale-105 transition ease-in-out delay-100 hover:-translate-y-0 bg-slate-100">
             <div className="relative radial-progress mx-auto my-auto" style={{ "--value": percentage, "--size": "8rem", "--thickness": "1rem", color: textColor }} role="progressbar">{percentage.toFixed(2)}%</div>
             <div className="card-body align-middle">
                 <h2 className="card-title justify-center pb-4">{courseId}</h2>
@@ -58,35 +58,62 @@ const AttendanceCard = ({ studentId, courseId, courseName }) => {
 };
 
 const Attendance = () => {
-    const [courseData,setCourseData] = useState([]);
 
-    const stdId = 'f66b2611-6481-4a37-a018-47a6c3e9a1e6';
+    const [courseData, setCourseData] = useState([]);
+    const [user, setUser] = useState('');
 
     useEffect(() => {
-        const getCourseData = async () => {
-            const studentData = await FnCalls.fetchStudentData(stdId);
-
-            if (studentData) {
-                const { semester, department } = studentData;
-                const courses = await FnCalls.fetchCoursesData(semester, department);
-                setCourseData(courses);
+        const fetchAndSetUser = async () => {
+            try {
+                const userId = await FnCalls.fetchUserId();
+                if (userId) {
+                    setUser(userId);
+                }
+            } catch (error) {
+                console.error("Error fetching User", error);
             }
         };
 
-        getCourseData();
-    }, []);
+        const getCourseData = async (user) => {
+            const studentData = await FnCalls.fetchStudentData(user);
+            const { semester: sem, department } = studentData;
 
+            console.log(studentData)
 
-    const attendData = [80, 91, 54, 76, 89, 53]
+            const courses = await FnCalls.fetchCoursesData(sem, department);
+            setCourseData(courses)
+
+        }
+
+        fetchAndSetUser();
+
+        if (user) {
+            getCourseData(user);
+        }
+    }, [user])
+
+    // useEffect(() => {
+    //     const getCourseData = async () => {
+    //         const studentData = await FnCalls.fetchStudentData(stdId);
+
+    //         if (studentData) {
+    //             const { semester, department } = studentData;
+    //             const courses = await FnCalls.fetchCoursesData(semester, department);
+    //             setCourseData(courses);
+    //         }
+    //     };
+
+    //     getCourseData();
+    // }, []);
 
     return (
         <div className='bg-slate-300 h-full'>
             <NavBarStu />
             <div className='relative attendance_report flex flex-col w-10/12 mx-auto my-auto'>
-                <h1 className='ring-black text-center text-4xl pt-6 pb-8'>Attendance Report</h1>
+                <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold'>Attendance Report</h1>
                 <div className="overflow-x-auto flex flex-row justify-center space-x-4 align-middle flex-wrap">
-                    {courseData.map((course,index) => (
-                        <AttendanceCard key={index} studentId={stdId} courseId={course.course_code} courseName={course.course_name} />
+                    {courseData.map((course, index) => (
+                        <AttendanceCard key={index} studentId={user} courseId={course.course_code} courseName={course.course_name} />
                     ))}
                 </div>
             </div>
