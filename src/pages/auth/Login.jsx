@@ -41,30 +41,19 @@ const Login = () => {
 
       if (error) {
         console.error(error.message);
+        toast.error("Invalid Credentials", {
+          autoClose: 1500,
+          position: "bottom-right"
+        });
         return;
       }
       const currUser = await supabase.auth.getUser();
 
-      const isStudent =  await supabase.from('Student').select('*').eq('user_id',currUser.data.user.id);
-      const isTeacher =  await supabase.from('Teacher').select('*').eq('user_id',currUser.data.user.id);
+      const isStudent = await supabase.from('Student').select('*').eq('user_id', currUser.data.user.id);
+      const isTeacher = await supabase.from('Teacher').select('*').eq('user_id', currUser.data.user.id);
 
-      if (userType === "student" && isStudent.data.length!=0) {
+      if (userType === "student" && isStudent.data.length != 0) {
 
-          toast.success('Signed In', {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-          setTimeout(() => {
-            navigate("/student_dashboard/report");
-          }, 3000);
-
-      } else if (userType === "teacher" && isTeacher.data.length!=0) {
         toast.success('Signed In', {
           position: "bottom-right",
           autoClose: 2000,
@@ -74,18 +63,33 @@ const Login = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
+        setTimeout(() => {
+          navigate("/student_dashboard/report");
+        }, 3000);
+
+      } else if (userType === "teacher" && isTeacher.data.length != 0) {
+        toast.success('Signed In', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setTimeout(() => {
           navigate("/teacher_dashboard/update_attendence");
         }, 3000);
-      } else{
+      } else {
         toast.error("User not Found", {
           autoClose: 1500,
           position: "bottom-right"
         });
       }
     } catch (error) {
-      console.error(error.message);
+      console.log(error)
     }
   };
 

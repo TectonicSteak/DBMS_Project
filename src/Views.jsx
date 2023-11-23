@@ -8,7 +8,6 @@ import { SemReports, DeleteAttendance, Report, Attendance, UpdateMarks, UpdateAt
 
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
-import MarkEntry from "./pages/views/MarkEntry";
 
 
 const Views = () => {
@@ -29,7 +28,7 @@ const Views = () => {
                     <Route path="/student_dashboard/marks/:semester" element={<MarkReport />} />
                 </Route>
                 <Route element={<TeacherProtectedRoutes />}>
-                    <Route path="/teacher_dashboard/mark_entry" element={<MarkEntry />} />
+                    {/* <Route path="/teacher_dashboard/mark_entry" element={<MarkEntry />} /> */}
                     <Route path="/teacher_dashboard/update_marks" element={<UpdateMarks />} />
                     <Route path="/teacher_dashboard/update_attendence" element={<UpdateAttendance />} />
                     <Route path="/teacher_dashboard/delete_attendence" element={<DeleteAttendance />} />
