@@ -9,8 +9,6 @@ import { data } from "autoprefixer";
 
 const AttendanceCard = ({ userId, courseId, courseName }) => {
 
-    const [CourseData, setCourseData] = useState([]);
-
     const [percentage, setPercentage] = useState(0);
     const [totalHours, setTotalHours] = useState(0);
     const [presentCount, setPresentCount] = useState(0);
@@ -81,6 +79,7 @@ const Attendance = () => {
             console.log(studentData)
 
             const courses = await FnCalls.fetchCoursesData(sem, department);
+            console.log(courses)
             setCourseData(courses)
 
         }
@@ -88,7 +87,7 @@ const Attendance = () => {
         fetchAndSetUser();
 
         if (user) {
-            getCourseData(user);
+            getCourseData(user);    
         }
     }, [user])
 
