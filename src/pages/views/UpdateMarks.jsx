@@ -43,34 +43,61 @@ const UpdateMarks = () => {
 
 
   const handleSubmit = async () => {
-    const markData = students.map(student => ({
+
+    for (const student of students) {
+      const studentGrade = grade[student.user_id];
+      if (studentGrade < 0 || studentGrade > 50) {
+        toast.error('Invalid Marks. Must be in the range [0-50]', {
+          autoClose: 2000
+        });
+        return;
+      }
+    }
+
+    let markData;
+
+    // students.map((student) => {
+    //   if (grade[student.user_id] > 50 || grade[student.user_id] < 0) {
+    //     toast.error('Invalid Marks. Must be in the range [0-50]', {
+    //       autoClose: 2000
+    //     })
+    //     markData = 0;
+    //     return
+    //   }
+    //   else {
+
+    //   }
+    // })
+
+    markData = students.map(student => ({
       student_id: student.user_id,
       course_id: courseCode,
-      // present: attendance[student.user_id] ? true : false,
       grade: grade[student.user_id],
       exam_type: 'internals'
     }));
 
+    if (markData) {
       try {
+
         const { error } = await supabase
           .from('Marks')
           .upsert(markData, { onConflict: ['student_id', 'course_id', 'exam_type'] });
 
-      if (error) throw error;
+        if (error) throw error;
 
-      toast.success('Marks updated successfully', {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
-      console.error('Error submitting attendance', error);
-      // Handle errors
+        toast.success('Marks updated successfully', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (error) {
+        console.error('Error submitting attendance', error);
+      }
     }
   };
 
@@ -80,8 +107,6 @@ const UpdateMarks = () => {
       setCourses(await fetchCoursesData(semester, department))
     }
   }
-
-  console.log(courseCode)
 
   return (
     <div className='bg-gray-100 min-h-screen '>
@@ -143,22 +168,6 @@ const UpdateMarks = () => {
               )}
             </select>
           </div>
-          {/* <div className="">
-            <label className='block text-sm font-medium text-gray-600'>Date:</label>
-            <input type='date' className='border rounded-md p-2 w-full' onChange={(e) => setDate(e.target.value)} />
-          </div> */}
-          {/* <div>
-            <label className='block text-sm font-medium text-gray-600'>Hour:</label>
-            <select
-              value={hour}
-              onChange={(e) => setHour(e.target.value)}
-              className="border rounded-md p-2 w-full"
-            >
-              {[1, 2, 3, 4, 5, 6].map((hour) => (
-                <option key={hour} value={hour}>{hour}</option>
-              ))}
-            </select>
-          </div> */}
         </div>
         <button className='bg-indigo-500 text-white px-4 py-2 mt-2 mb-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800' onClick={fetchStudents}>Search</button>
 
@@ -176,12 +185,11 @@ const UpdateMarks = () => {
                 <td className="py-2 px-6">
                   <input
                     name='grade'
-                    type='text'
+                    type='number'
                     value={grade[student.user_id]}
                     placeholder='Input marks'
                     className='p-2 w-auto text-center bg-inherit border-solid border-2 border-slate-500'
                     onChange={(e) => setGrade({ ...grade, [student.user_id]: e.target.value })}
-                  // onKeyDown={handleKeyDown} 
                   />
                 </td>
               </tr>
