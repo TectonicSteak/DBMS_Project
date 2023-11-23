@@ -106,7 +106,7 @@ const SemReports = () => {
 
 
   return (
-    <div className=' h-screen'>
+    <div className='h-screen'>
       <NavBarStu />
       <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold' >Semester : {semester}</h1>
       <>

@@ -9,8 +9,6 @@ import { data } from "autoprefixer";
 
 const AttendanceCard = ({ userId, courseId, courseName }) => {
 
-    const [CourseData, setCourseData] = useState([]);
-
     const [percentage, setPercentage] = useState(0);
     const [totalHours, setTotalHours] = useState(0);
     const [presentCount, setPresentCount] = useState(0);
@@ -20,7 +18,7 @@ const AttendanceCard = ({ userId, courseId, courseName }) => {
             const { data, error } = await supabase
                 .from("Attendance")
                 .select("*")
-                .eq("user_id", userId)
+                .eq("std_id", userId)
                 .eq("course", courseId);
 
             if (error) {
@@ -81,6 +79,7 @@ const Attendance = () => {
             console.log(studentData)
 
             const courses = await FnCalls.fetchCoursesData(sem, department);
+            console.log(courses)
             setCourseData(courses)
 
         }
@@ -88,7 +87,7 @@ const Attendance = () => {
         fetchAndSetUser();
 
         if (user) {
-            getCourseData(user);
+            getCourseData(user);    
         }
     }, [user])
 
@@ -113,7 +112,7 @@ const Attendance = () => {
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold'>Attendance Report</h1>
                 <div className="overflow-x-auto flex flex-row justify-center space-x-4 align-middle flex-wrap">
                     {courseData.map((course, index) => (
-                        <AttendanceCard key={index} studentId={user} courseId={course.course_code} courseName={course.course_name} />
+                        <AttendanceCard key={index} userId={user} courseId={course.course_code} courseName={course.course_name} />
                     ))}
                 </div>
             </div>

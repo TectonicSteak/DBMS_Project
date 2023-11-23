@@ -58,7 +58,7 @@ const UpdateMarks = () => {
 
       if (error) throw error;
 
-      toast.success('Attendance updated successfully', {
+      toast.success('Marks updated successfully', {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -166,7 +166,7 @@ const UpdateMarks = () => {
           <thead>
             <tr className="bg-gray-200">
               <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Name</th>
-              <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Present</th>
+              <th className="py-3 px-6 text-left text-sm font-bold text-gray-600 uppercase">Marks</th>
             </tr>
           </thead>
           <tbody>

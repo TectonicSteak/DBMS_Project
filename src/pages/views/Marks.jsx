@@ -22,7 +22,7 @@ const Marks = () => {
     const semesters = [1, 2, 3, 4, 5, 6, 7, 8]
 
     return (
-        <div className='bg-slate-300 h-auto'>
+        <div className='h-auto'>
             <NavBarStu />
             <div className='container mx-auto p-6'>
                 <h1 className='text-center text-5xl font-bold text-gray-700 mb-10'>Internal Marks Report</h1>
