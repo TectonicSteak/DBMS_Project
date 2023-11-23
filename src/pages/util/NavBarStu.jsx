@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
+import logo from '../../assets/logo.png'
 
 const NavBarStu = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -23,14 +24,11 @@ const NavBarStu = () => {
 
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-around items-center">
-        <div className="space-x-4 ">
-          {/* <Link
-              to="/student_dashboard"
-              className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Dashboard
-            </Link> */}
+      <div className=" mx-auto flex justify-around align-middle items-center">
+        <div>
+          <img src={logo} className="mx-auto my-auto w-10 h-10 " />
+        </div>
+        <div className="space-x-4">
           <Link
             to="/student_dashboard/report"
             className="text-white hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium"
@@ -50,7 +48,7 @@ const NavBarStu = () => {
             Marks
           </Link>
         </div>
-        <div className="ml-auto">
+        <div className="">
           {/* Dropdown Menu */}
           <div className="relative">
             <button

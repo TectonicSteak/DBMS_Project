@@ -100,7 +100,7 @@ const StudentProfile = () => {
 
 
     return (
-        <div className='bg-slate-300 h-screen'>
+        <div className='bg-gray-100'>
             <NavBarStu />
             <div className="text-center mt-6">
                 <h1 className="text-3xl font-semibold mb-6">Profile</h1>

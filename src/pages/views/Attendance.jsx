@@ -106,7 +106,7 @@ const Attendance = () => {
     // }, []);
 
     return (
-        <div className='bg-slate-300 h-full'>
+        <div className='bg-gray-100'>
             <NavBarStu />
             <div className='relative attendance_report flex flex-col w-10/12 mx-auto my-auto'>
                 <h1 className='ring-black text-center text-4xl pt-6 pb-8 font-bold'>Attendance Report</h1>
